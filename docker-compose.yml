@@ -6,4 +6,6 @@ services:
       - "8000:8000"
     volumes:
       - .:/grocery_list/:ro
+    restart: always
+    command: python manage.py runserver 0.0.0.0:8000
     
