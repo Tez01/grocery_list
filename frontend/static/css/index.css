@@ -2,10 +2,11 @@
    such as primary colors, secondory colors, typography etc.    */
 :root{
     /* Pallette */
-    --clr-primary: #001427;
+    --clr-background-primary: #001427;
+    --clr-primary: white;
     --clr-secondary: #005FB8;
-    --clr-highlight-1: #48A034;
-    --clr-highlight-2: #98211F;
+    --clr-accent-1: #B8C7CC;
+    --clr-accent-2: #DD6031;
 
 
     /* Font family */
@@ -121,7 +122,9 @@ svg {
 }
 
 /* For background color */
-
+.bg-background-primary-color{
+    background-color: var(--clr-background-primary)
+}
 .bg-primary-color{
     background-color: var(--clr-primary)
 }
@@ -146,7 +149,7 @@ svg {
 }
 
 
-.fw-semi-regular{
+.fw-regular{
     font-weight: var(--fw-regular);
 }
 

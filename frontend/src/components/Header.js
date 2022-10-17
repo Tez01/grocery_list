@@ -15,7 +15,7 @@ function Header() {
   let currentDate = getDate();
   const [date, changeDate] = useState(`${currentDate}`);
   return (
-    <div className="header container">
+    <header className="header container text-primary-color">
       {/* <input
         className="header__input fs-primary-heading fw-bold"
         type="text"
@@ -24,7 +24,7 @@ function Header() {
       <h1>Grocery List</h1>
       <br></br>
       <h3 className="header__date fs-secondary-heading fw-semi-bold">{date}</h3>
-    </div>
+    </header>
   );
 }
 

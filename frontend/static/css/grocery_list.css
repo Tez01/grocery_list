@@ -1,6 +1,7 @@
 .grocery-list{
     width:70%;
     margin:auto;
+    
 }
 
 /*************Header *****************/
@@ -9,12 +10,7 @@
     width: fit-content;
 }
 
-.header__input{
-    border: hidden;
-}
-input{
-    width:fit-content;
-}
+
 
 /********************* Utilities ****************/
 .utilities.container{
@@ -22,18 +18,29 @@ input{
     display: flex;
     justify-content: center;
 }
-.utilities__button{
-    border-radius: 5px;
-    margin-inline: 7%;
+.utilities__form{
+    display: flex;
+}
+.utilities__form__button, .utilities__form__input{
+    border: none;
+    
+}
+
+.utilities__form__button{
+    border-left-width: 3px;
+    border-left: black;
     padding: .2rem;
     padding-inline: .4rem;
-    width: 7rem;
 }
-@media (max-width: 400px){
-    .utilities__button{
-        margin-inline: 3%;
-    }
+.utilities__form__input{
+    width:70%;
 }
+.utilities__form__input:focus{
+    outline: none !important;
+    border: 1px solid;
+    border-color: var(--clr-accent-2);
+}
+
 /************************ List ************************/
 .list.container{
     padding:

@@ -5,7 +5,7 @@ import Utilities from "./Utilities";
 import "../../static/css/grocery_list.css";
 function GroceryList() {
   return (
-    <div className="grocery-list container">
+    <div className="grocery-list container ">
       <Header />
       <Utilities />
       <List />
