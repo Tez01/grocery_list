@@ -20,20 +20,21 @@
 
     /* Font sizes */
     --fs-small: 1rem;
-    --fs-medium: 1.5 rem;
-    --fs-large: 2 rem;
+    --fs-medium: 1.1rem;
+    --fs-large: 2rem;
 
-    
+}
 
     /* For mobile devices, make fonts little bit bigger */
-@media (min-width: 50em){
+@media (max-width: 400px){
     :root{
-        --fs-small: 1.1 rem;
-        --fs-medium: 1.8 rem;
-        --fs-large: 2.2 rem;
+        --fs-small: 1.1rem;
+        --fs-medium: 1.5rem;
+        --fs-large: 2.2rem;
     }
+   
 }
-}
+
 
 /*********************** Reset rules **************************/
 /* These reset rules are inspired from Any Bell's blog on reset : https://piccalil.li/blog/a-modern-css-reset/
@@ -155,12 +156,13 @@ svg {
     font-size: var(--fs-small);
 }
 .fs-primary-heading{
-    font-size:var(--fs-primary-heading);
+    font-size:var(--fs-large);
 }
 .fs-secondary-heading{
-    font-size:var(--fs-secondary-heading);
+    font-size:var(--fs-medium);
 }
 
 .fs-button{
     font-size:var(--fs-small);
+    
 }
