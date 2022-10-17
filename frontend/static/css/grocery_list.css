@@ -3,10 +3,38 @@
     margin:auto;
 }
 
+/*************Header *****************/
 .header > *{
-    margin-left: 2%;
+    margin:auto;
+    width: fit-content;
 }
 
 .header__input{
     border: hidden;
+}
+input{
+    width:fit-content;
+}
+
+/********************* Utilities ****************/
+.utilities.container{
+    padding:3%;
+    display: flex;
+    justify-content: center;
+}
+.utilities__button{
+    border-radius: 5px;
+    margin-inline: 7%;
+    padding: .2rem;
+    padding-inline: .4rem;
+    width: 7rem;
+}
+@media (max-width: 400px){
+    .utilities__button{
+        margin-inline: 3%;
+    }
+}
+/************************ List ************************/
+.list.container{
+    padding:
 }

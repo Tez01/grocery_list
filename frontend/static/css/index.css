@@ -166,3 +166,12 @@ svg {
     font-size:var(--fs-small);
     
 }
+
+h1{
+    font-size: var(--fs-large);
+    font-weight: var(--fw-bold);
+}
+h3{
+    font-size: var(--fs-medium);
+    font-weight: var(--fw-bold);
+}

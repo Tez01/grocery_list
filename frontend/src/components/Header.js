@@ -16,11 +16,13 @@ function Header() {
   const [date, changeDate] = useState(`${currentDate}`);
   return (
     <div className="header container">
-      <input
+      {/* <input
         className="header__input fs-primary-heading fw-bold"
         type="text"
         placeholder="Add title..."
-      />
+      /> */}
+      <h1>Grocery List</h1>
+      <br></br>
       <h3 className="header__date fs-secondary-heading fw-semi-bold">{date}</h3>
     </div>
   );
