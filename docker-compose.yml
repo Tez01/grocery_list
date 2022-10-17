@@ -7,6 +7,6 @@ services:
     volumes:
       - .:/grocery_list/
     restart: always
-    command: bash -c "cd frontend && npm run dev"
+    command: bash -c "cd frontend && npm run dev & && cd .. && python /grocery_list/manage.py runserver 0.0.0.0:8000"
 
         
