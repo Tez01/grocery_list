@@ -1,0 +1,179 @@
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+October 17, 2022 - 18:41:18
+Django version 4.1.2, using settings 'grocery_list.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+Error: That port is already in use.
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+October 17, 2022 - 18:42:03
+Django version 4.1.2, using settings 'grocery_list.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+[17/Oct/2022 18:42:05] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:42:06] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:42:07] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:42:08] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:42:09] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:42:09] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:42:09] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:42:10] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:17] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:18] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:19] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:26] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:26] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:27] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:28] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:29] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:29] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:47] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:48] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:48] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:43:49] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:44:02] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:44:02] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:44:57] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:45:23] "GET / HTTP/1.1" 200 782
+[17/Oct/2022 18:45:23] "GET /static/js/main.js HTTP/1.1" 200 1205557
+
+> frontend@1.0.0 dev
+> webpack --mode development --watch
+
+asset main.js 1.15 MiB [emitted] [minimized] (name: main) 1 related asset
+runtime modules 1.07 KiB 6 modules
+cacheable modules 1.1 MiB
+  modules by path ./node_modules/ 1.09 MiB 15 modules
+  modules by path ./src/ 2.36 KiB
+    ./src/index.js 321 bytes [built] [code generated]
+    ./src/components/App.js 241 bytes [built] [code generated]
+    ./src/components/GroceryList.js 462 bytes [built] [code generated]
+    ./src/components/List.js 170 bytes [built] [code generated]
+    + 2 modules
+  modules by path ./static/css/*.css 6.52 KiB
+    ./static/css/index.css 1.14 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/index.css 3.67 KiB [built] [code generated]
+    ./static/css/grocery_list.css 1.15 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/grocery_list.css 567 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 1659 ms
+
+> frontend@1.0.0 dev
+> webpack --mode development --watch
+
+asset main.js 1.15 MiB [compared for emit] [minimized] (name: main) 1 related asset
+runtime modules 1.07 KiB 6 modules
+cacheable modules 1.1 MiB
+  modules by path ./node_modules/ 1.09 MiB 15 modules
+  modules by path ./src/ 2.36 KiB
+    ./src/index.js 321 bytes [built] [code generated]
+    ./src/components/App.js 241 bytes [built] [code generated]
+    ./src/components/GroceryList.js 462 bytes [built] [code generated]
+    ./src/components/List.js 170 bytes [built] [code generated]
+    + 2 modules
+  modules by path ./static/css/*.css 6.52 KiB
+    ./static/css/index.css 1.14 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/index.css 3.67 KiB [built] [code generated]
+    ./static/css/grocery_list.css 1.15 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/grocery_list.css 567 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 1886 ms
+asset main.js 1.15 MiB [emitted] [minimized] (name: main) 1 related asset
+cached modules 1.1 MiB [cached] 24 modules
+runtime modules 1.07 KiB 6 modules
+./src/components/Header.js 849 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 542 ms
+asset main.js 1.15 MiB [emitted] [minimized] (name: main) 1 related asset
+cached modules 1.1 MiB [cached] 24 modules
+runtime modules 1.07 KiB 6 modules
+./src/components/Header.js 848 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 527 ms
+
+> frontend@1.0.0 dev
+> webpack --mode development --watch
+
+asset main.js 1.15 MiB [compared for emit] [minimized] (name: main) 1 related asset
+runtime modules 1.07 KiB 6 modules
+cacheable modules 1.1 MiB
+  modules by path ./node_modules/ 1.09 MiB 15 modules
+  modules by path ./src/ 2.36 KiB
+    ./src/index.js 321 bytes [built] [code generated]
+    ./src/components/App.js 241 bytes [built] [code generated]
+    ./src/components/GroceryList.js 462 bytes [built] [code generated]
+    ./src/components/List.js 170 bytes [built] [code generated]
+    + 2 modules
+  modules by path ./static/css/*.css 6.52 KiB
+    ./static/css/index.css 1.14 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/index.css 3.67 KiB [built] [code generated]
+    ./static/css/grocery_list.css 1.15 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/grocery_list.css 567 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 1661 ms
+
+> frontend@1.0.0 dev
+> webpack --mode development --watch
+
+asset main.js 1.15 MiB [compared for emit] [minimized] (name: main) 1 related asset
+runtime modules 1.07 KiB 6 modules
+cacheable modules 1.1 MiB
+  modules by path ./node_modules/ 1.09 MiB 15 modules
+  modules by path ./src/ 2.36 KiB
+    ./src/index.js 321 bytes [built] [code generated]
+    ./src/components/App.js 241 bytes [built] [code generated]
+    ./src/components/GroceryList.js 462 bytes [built] [code generated]
+    ./src/components/List.js 170 bytes [built] [code generated]
+    + 2 modules
+  modules by path ./static/css/*.css 6.52 KiB
+    ./static/css/index.css 1.14 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/index.css 3.67 KiB [built] [code generated]
+    ./static/css/grocery_list.css 1.15 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/grocery_list.css 567 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 1759 ms
+
+> frontend@1.0.0 dev
+> webpack --mode development --watch
+
+asset main.js 1.15 MiB [compared for emit] [minimized] (name: main) 1 related asset
+runtime modules 1.07 KiB 6 modules
+cacheable modules 1.1 MiB
+  modules by path ./node_modules/ 1.09 MiB 15 modules
+  modules by path ./src/ 2.36 KiB
+    ./src/index.js 321 bytes [built] [code generated]
+    ./src/components/App.js 241 bytes [built] [code generated]
+    ./src/components/GroceryList.js 462 bytes [built] [code generated]
+    ./src/components/List.js 170 bytes [built] [code generated]
+    + 2 modules
+  modules by path ./static/css/*.css 6.52 KiB
+    ./static/css/index.css 1.14 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/index.css 3.67 KiB [built] [code generated]
+    ./static/css/grocery_list.css 1.15 KiB [built] [code generated]
+    ./node_modules/css-loader/dist/cjs.js!./static/css/grocery_list.css 567 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 1757 ms
+asset main.js 1.15 MiB [emitted] [minimized] (name: main) 1 related asset
+cached modules 1.1 MiB [cached] 24 modules
+runtime modules 1.07 KiB 6 modules
+./src/components/Header.js 847 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 939 ms
+asset main.js 1.15 MiB [emitted] [minimized] (name: main) 1 related asset
+cached modules 1.1 MiB [cached] 24 modules
+runtime modules 1.07 KiB 6 modules
+./src/components/Header.js 847 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 1081 ms
+asset main.js 1.15 MiB [emitted] [minimized] (name: main) 1 related asset
+cached modules 1.1 MiB [cached] 24 modules
+runtime modules 1.07 KiB 6 modules
+./src/components/Header.js 848 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 796 ms
+asset main.js 1.15 MiB [emitted] [minimized] (name: main) 1 related asset
+cached modules 1.1 MiB [cached] 24 modules
+runtime modules 1.07 KiB 6 modules
+./src/components/Header.js 848 bytes [built] [code generated]
+webpack 5.74.0 compiled successfully in 896 ms

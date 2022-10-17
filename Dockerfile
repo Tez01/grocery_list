@@ -8,3 +8,4 @@ RUN npm install frontend/
 COPY requirements.txt /grocery_list/
 RUN pip3 install -r requirements.txt
 COPY . .
+RUN nohup npm --prefix frontend/ run dev&
