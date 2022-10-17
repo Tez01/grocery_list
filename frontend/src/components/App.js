@@ -1,7 +1,12 @@
 import React from "react";
+import GroceryList from "./GroceryList";
 
 const App = () => {
-  return <h1>Welcome to grocery homepage</h1>;
+  return (
+    <div className="app">
+      <GroceryList />
+    </div>
+  );
 };
 
 export default App;
