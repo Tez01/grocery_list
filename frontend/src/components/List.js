@@ -1,7 +1,9 @@
 import React from "react";
 
-function List() {
-  return <div className="list container">Lisasasddt</div>;
+function getCurrentItems() {}
+
+function List({ components }) {
+  return <div className="list container">{components}</div>;
 }
 
 export default List;
