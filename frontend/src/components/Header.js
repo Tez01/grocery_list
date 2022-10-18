@@ -1,0 +1,26 @@
+import React, { useState } from "react";
+
+// function: getDate
+// Returns : Todays date in string format
+function getDate() {
+  const datetime = new Date();
+  const month = datetime.toLocaleString("default", { month: "short" });
+  const date = `${datetime.getDate()} ${month},${datetime.getFullYear()}`;
+
+  return date;
+}
+
+function Header() {
+  // Get today's date
+  let currentDate = getDate();
+  const [date, changeDate] = useState(`${currentDate}`);
+  return (
+    <header className="header container text-primary-color">
+      <h1>Grocery List</h1>
+      <br></br>
+      <h3 className="header__date fs-secondary-heading fw-semi-bold">{date}</h3>
+    </header>
+  );
+}
+
+export default Header;

@@ -1,0 +1,119 @@
+.app{
+    width: 100vw;
+    height: 100vh;
+}
+.grocery-list{
+    width:50%;
+    margin:auto;
+    
+}
+@media (max-width:800px){
+  
+    .grocery-list{
+        width:90%;
+        margin:auto;
+    }
+    .list__element__button--data{
+        border:none   ;
+        width:70%;
+        height:5vh;
+    }
+    .list__element__button--edit{
+        flex-grow: 2;
+     }
+    .list__element__button--delete{
+        flex-grow:1;
+     }
+}
+
+/*************Header *****************/
+.header > *{
+    margin:auto;
+    width: fit-content;
+}
+
+
+
+/********************* Utilities ****************/
+.utilities.container{
+    padding:3%;
+    display: flex;
+    justify-content: center;
+}
+.utilities__form{
+    display: flex;
+}
+.utilities__form__button, .utilities__form__input{
+    border: none;
+    
+}
+
+.utilities__form__button{
+    border-left-width: 3px;
+    border-left: black;
+    padding: .2rem;
+    padding-inline: .4rem;
+}
+.utilities__form__input{
+    width:auto;
+}
+.utilities__form__input:focus{
+    outline: none !important;
+    border: 1px solid;
+    border-color: var(--clr-accent-2);
+}
+
+/************************ List ************************/
+/* .list__element__button--data{
+    
+} */
+.list__element{
+    display:flex;
+    margin: 1 rem;
+    justify-content: stretch;   
+    padding: .25rem;
+    align-items:flex-end;
+    /* Defining this variable because height of edit and delete button depends on this */
+    --data-button-height: 5vh;
+}
+
+.list__element__button{
+    border:none   ;
+    
+}
+.list__element__button--data{
+    border:none   ;
+    width:80%;
+    height:5vh;
+}
+
+.button--hidden{
+    /* By default, the buttons would wrap the text with ellipsis */
+    overflow-wrap: break-word; 
+    text-overflow: ellipsis;
+    overflow:hidden;
+    white-space: nowrap;
+}
+/* This class will expand the button so that it contains all text */
+.button--expand{
+    min-height: 5vh;
+    border:none   ;
+    overflow-wrap: break-word; 
+    height:auto;
+}
+.list__element__button--data:hover{
+    border: 1px solid;
+    border-color: var(--clr-accent-2);
+
+}
+.list__element__button--edit{
+    flex-grow: 1;
+    max-height: 5vh;
+    min-height: var(--data-button-height)
+ }
+.list__element__button--delete{
+    flex-grow:1;
+    max-height: 5vh;
+    min-height: var(--data-button-height)
+ }
+
