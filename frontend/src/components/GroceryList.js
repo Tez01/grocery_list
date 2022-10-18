@@ -13,13 +13,50 @@ function getTimestamp() {
   let timestamp = d.getTime();
   return `${timestamp}`;
 }
-// React list element
+
+// Function: toggleButtonText
+//           Toggles text between expanded or hidden view
+// Arguments: Takes in the event property.
+function toggleButtonText(e) {
+  // Whenever the button is clicked toggle the class between button--hidden and button--expand
+  // based on the current data attribute of element. This would expand the text inside.
+  // See these classes in grocery_list.css
+  /////////////////////// Write test to see this functionality ///////////////////////////////
+  const targetElement = e.target;
+  if (targetElement.data == "0") {
+    targetElement.classList.remove("button--hidden");
+    targetElement.classList.add("button--expand");
+    targetElement.data = "1";
+  } else {
+    targetElement.classList.remove("button--expand");
+    targetElement.classList.add("button--hidden");
+    targetElement.data = "0";
+  }
+}
+
 const reactListElement = (data) => {
   return (
-    <div className="list__element" key={getTimestamp()}>
-      <h3>{data}</h3>
-      <button>Edit</button>
-      <button>Delete</button>
+    <div className="list__element " key={getTimestamp()}>
+      <button
+        type="button"
+        className="list__element__button list__element__button--data bg-primary-color button--hidden"
+        onClick={toggleButtonText}
+        data="0"
+      >
+        {data}
+      </button>
+      <button
+        type="button"
+        className="list__element__button list__element__button--edit bg-button-save text-primary-color"
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        className="list__element__button list__element__button--delete bg-button-delete text-primary-color"
+      >
+        Delete
+      </button>
     </div>
   );
 };
@@ -80,13 +117,15 @@ const GroceryList = () => {
       inputElement.value = "";
       // Convert to react component
       const reactComponent = reactListElement(textInput, 45);
-      console.log(reactComponent);
+
       // Push to current array of components
       let newArr = [...components, reactComponent];
       // Update the state
       updateComponents(newArr);
 
       // Make a post request to the backend
+
+      //////////////////// Make a test which clicks the button when empty and very long strings ///////////
     }
   };
   return (
@@ -102,3 +141,5 @@ const GroceryList = () => {
   );
 };
 export default GroceryList;
+
+/////// Multiple browser testing for all features /////////////////
