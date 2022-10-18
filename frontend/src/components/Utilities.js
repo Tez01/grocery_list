@@ -1,9 +1,9 @@
 import React from "react";
 
-function Utilities() {
+function Utilities({ submitHandler }) {
   return (
     <div className="utilities container">
-      <form className="utilities__form">
+      <form className="utilities__form" onSubmit={submitHandler}>
         <input
           className="utilities__form__input fs-body fw-regular"
           type="text"
