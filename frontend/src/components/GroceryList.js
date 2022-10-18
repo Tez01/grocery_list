@@ -8,7 +8,7 @@ import "../../static/css/grocery_list.css";
 const reactListElement = (data) => {
   return (
     <div className="list__element">
-      <h3>data.text</h3>
+      <h3>{data}</h3>
       <button>Edit</button>
       <button>Delete</button>
     </div>
@@ -35,7 +35,7 @@ function getReactComponents(listOfComponents) {
 
 // testGetReactComponents
 function testGetReactComponents() {
-  listData = [];
+  const listData = [];
   for (let i = 0; i < 10; i++) {
     listData.push(`${i}`);
   }
@@ -60,17 +60,15 @@ const GroceryList = () => {
     const textInput = document.querySelector(".utilities__form__input").value;
     // Convert to react element if input is not null and updateComponent list
     if (textInput != "") {
-      const textInputArray = Array(textInput);
       console.log(textInput);
-      currentListItems.push(textInput);
       // Convert to react component
-      const reactComponent = getReactComponents(textInputArray);
-
+      const reactComponent = reactListElement(textInput);
+      console.log(reactComponent);
       // Push to current array of components
       reactComponents.push(reactComponent);
-
+      console.log(reactComponents);
       // Update the state
-      updateComponents(reactComponents);
+      updateComponents(<h1>Hello</h1>);
 
       // Make a post request to the backend
     }
@@ -88,5 +86,4 @@ const GroceryList = () => {
     </div>
   );
 };
-
 export default GroceryList;
