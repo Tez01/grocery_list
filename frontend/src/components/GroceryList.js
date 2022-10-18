@@ -4,10 +4,19 @@ import Header from "./Header";
 import Utilities from "./Utilities";
 import "../../static/css/grocery_list.css";
 
+// Function: getTimestamp
+// Returns : The string for current datetime in timestamp format which can be used as unique identifier.
+// (ms accuracy)
+///////////////////Write a testing function to simulate clicks very fast and check timestamps//////////////////
+function getTimestamp() {
+  let d = new Date();
+  let timestamp = d.getTime();
+  return `${timestamp}`;
+}
 // React list element
-const reactListElement = (data, key) => {
+const reactListElement = (data) => {
   return (
-    <div className="list__element" key={key}>
+    <div className="list__element" key={getTimestamp()}>
       <h3>{data}</h3>
       <button>Edit</button>
       <button>Delete</button>
@@ -63,16 +72,17 @@ const GroceryList = () => {
     // Prevent from submission of form
     e.preventDefault();
     // Get data from input
-    const textInput = document.querySelector(".utilities__form__input").value;
+    const inputElement = document.querySelector(".utilities__form__input");
+    const textInput = inputElement.value;
     // Convert to react element if input is not null and updateComponent list
     if (textInput != "") {
-      console.log(textInput);
+      // Clear the input field
+      inputElement.value = "";
       // Convert to react component
       const reactComponent = reactListElement(textInput, 45);
       console.log(reactComponent);
       // Push to current array of components
       let newArr = [...components, reactComponent];
-      console.log(newArr);
       // Update the state
       updateComponents(newArr);
 
