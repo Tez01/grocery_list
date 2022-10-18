@@ -35,7 +35,7 @@ function getReactComponents(listOfComponents) {
 
 // testGetReactComponents
 function testGetReactComponents() {
-  listData = [];
+  const listData = [];
   for (let i = 0; i < 10; i++) {
     listData.push(`${i}`);
   }
