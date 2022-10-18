@@ -7,7 +7,24 @@
     margin:auto;
     
 }
-
+@media (max-width:800px){
+  
+    .grocery-list{
+        width:90%;
+        margin:auto;
+    }
+    .list__element__button--data{
+        border:none   ;
+        width:70%;
+        height:5vh;
+    }
+    .list__element__button--edit{
+        flex-grow: 2;
+     }
+    .list__element__button--delete{
+        flex-grow:1;
+     }
+}
 
 /*************Header *****************/
 .header > *{
@@ -100,16 +117,3 @@
     min-height: var(--data-button-height)
  }
 
- @media (max-width:800px){
-  
-    .grocery-list{
-        width:90%;
-        margin:auto;
-    }
-    .list__element__button--edit{
-        flex-grow: 2;
-     }
-    .list__element__button--delete{
-        flex-grow:1;
-     }
-}
