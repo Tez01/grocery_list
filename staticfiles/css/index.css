@@ -1,0 +1,168 @@
+/* Style guide for whole frontend. This section contains some global settings 
+   such as primary colors, secondory colors, typography etc.    */
+:root{
+    /* Pallette */
+    --clr-primary: #001427;
+    --clr-secondary: #005FB8;
+    --clr-highlight-1: #48A034;
+    --clr-highlight-2: #98211F;
+
+
+    /* Font family */
+    --ff-primary:'Roboto', sans-serif;
+    --ff-body: var(--ff-primary);
+    --ff-heading: var(--ff-primary);
+
+    /* Font weights */
+    --fw-regular: 400;
+    --fw-bold: 700;
+    --fw-semi-bold:500;
+
+    /* Font sizes */
+    --fs-small: 1rem;
+    --fs-medium: 1.1rem;
+    --fs-large: 2rem;
+
+}
+
+    /* For mobile devices, make fonts little bit bigger */
+@media (max-width: 400px){
+    :root{
+        --fs-small: 1.1rem;
+        --fs-medium: 1.5rem;
+        --fs-large: 2.2rem;
+    }
+   
+}
+
+
+/*********************** Reset rules **************************/
+/* These reset rules are inspired from Any Bell's blog on reset : https://piccalil.li/blog/a-modern-css-reset/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin for all elements */
+*{
+  margin: 0;
+  padding:0;
+  font: inherit; /* If you want to create any h tags, do the styling inplace there*/
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+
+html, 
+body{
+    height: 100%;
+}
+/* Set core body defaults */
+body {
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+   scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* Utility classes */
+/* For text color*/
+.text-primary-color{
+    color: var(--clr-primary)
+}
+.text-accent-1{
+    color: var(--clr-accent-1);
+}
+.text-accent-2{
+    color: var(--clr-accent-2);
+}
+.text-secondary-color{
+    color:var(--clr-secondary);
+}
+
+/* For background color */
+
+.bg-primary-color{
+    background-color: var(--clr-primary)
+}
+.bg-accent-1{
+    background-color: var(--clr-accent-1);
+}
+.bg-accent-2{
+    background-color: var(--clr-accent-2);
+}
+.bg-secondary-color{
+    background-color:var(--clr-secondary);
+}
+
+/* For font weight */
+
+.fw-bold{
+    font-weight: var(--fw-bold);
+}
+
+.fw-semi-bold{
+    font-weight: var(--fw-semi-bold);
+}
+
+
+.fw-semi-regular{
+    font-weight: var(--fw-regular);
+}
+
+
+/* For some common components */
+.fs-body{
+    font-size: var(--fs-small);
+}
+.fs-primary-heading{
+    font-size:var(--fs-large);
+}
+.fs-secondary-heading{
+    font-size:var(--fs-medium);
+}
+
+.fs-button{
+    font-size:var(--fs-small);
+    
+}

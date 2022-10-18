@@ -1,0 +1,12 @@
+.grocery-list{
+    width:70%;
+    margin:auto;
+}
+
+.header > *{
+    margin-left: 2%;
+}
+
+.header__input{
+    border: hidden;
+}
