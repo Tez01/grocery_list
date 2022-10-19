@@ -1,7 +1,7 @@
 import React from "react";
 
-function Edit() {
+const Edit = () => {
   return <div>Edit</div>;
-}
+};
 
 export default Edit;

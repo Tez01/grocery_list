@@ -9,6 +9,7 @@ import {
   getTimestamp,
   getCurrentItems,
 } from "../utils";
+import { useNavigate } from "react-router-dom";
 const Add = () => {
   // Create a state variable to add list elements dynamically
   const [components, updateComponents] = useState([]);
@@ -24,13 +25,13 @@ const Add = () => {
     // Update the state variable for list components
     updateComponents([...components, ...reactComponents]);
   }, []);
-
   // Create a handler for edit button click
-  const editClickHandler = (e) => {
-    // Prevent default behavior
-    e.preventDefault;
 
-    // Navigate to edit page with this element as input.
+  // Create handler for edit button clicked
+  const navigate = useNavigate();
+  const navigateToEdit = (e) => {
+    console.log("Navigated");
+    navigate("/edit");
   };
   // Create a handler for input form submission
   const submitHandler = (e) => {
@@ -44,7 +45,7 @@ const Add = () => {
       // Clear the input field
       inputElement.value = "";
       // Convert to react component
-      const reactComponent = reactListElement(textInput, 45);
+      const reactComponent = reactListElement(textInput, navigateToEdit);
 
       // Push to current array of components
       let newArr = [...components, reactComponent];

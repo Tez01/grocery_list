@@ -1,5 +1,6 @@
 from django.urls import path, include
-from .views import index
+from .views import index, redirectToHome
 urlpatterns = [
-    path('', index)
+    path('', index),
+    path('edit/', redirectToHome)
 ]
