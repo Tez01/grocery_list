@@ -1,4 +1,5 @@
 import React from "react";
+
 // Function: getTimestamp
 // Returns : The string for current datetime in timestamp format which can be used as unique identifier.
 // (ms accuracy)
