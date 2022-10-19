@@ -47,15 +47,23 @@ const Add = () => {
       console.log("Error");
     }
   };
+  // Create a handler for delete task
+  const deleteItem = (e) => {
+    // Prevent submit action of button
+    e.preventDefault();
+  };
+
   // Create a handler for input form submission
-  const submitHandler = (e) => {
+  const addItem = (e) => {
     // Prevent from submission of form
     e.preventDefault();
     // Get data from input
     const inputElement = document.querySelector(".utilities__form__input");
     const textInput = inputElement.value;
-    // Convert to react element if input is not null and updateComponent list
-    if (textInput != "") {
+
+    /////////// Test here more for inputs ///////////
+    // Convert to react element if input is not conatining only spaces and updateComponent list
+    if (!/^\s*$/.test(textInput)) {
       // Clear the input field
       inputElement.value = "";
       // Convert to react component
@@ -74,7 +82,7 @@ const Add = () => {
     <div className="Add">
       {/* Pass the above submitHandler as prop to Utilities,
       so that when form in utilities is submitted it runs this function*/}
-      <Utilities submitHandler={submitHandler} />;
+      <Utilities submitHandler={addItem} />;
       {/* Pass the above state variable of lists as prop to List */}
       <List components={components} />;
     </div>
