@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Utilities from "./Utilities";
 import List from "./List";
 import {
@@ -10,10 +10,12 @@ import {
   getCurrentItems,
 } from "../utils";
 import { useNavigate } from "react-router-dom";
+
 const Add = () => {
   // Create a state variable to add list elements dynamically
   const [components, updateComponents] = useState([]);
-
+  const stateRef = useRef();
+  stateRef.current = components;
   // This useEffect hook will only run once so as to fetch data from database,
   // on first time this component is rendered.
   useEffect(() => {
@@ -25,13 +27,25 @@ const Add = () => {
     // Update the state variable for list components
     updateComponents([...components, ...reactComponents]);
   }, []);
-  // Create a handler for edit button click
 
   // Create handler for edit button clicked
   const navigate = useNavigate();
   const navigateToEdit = (e) => {
-    console.log("Navigated");
-    navigate("/edit");
+    e.preventDefault();
+
+    try {
+      navigate("/edit", {
+        replace: true,
+        state: {
+          components: stateRef.current,
+          updateComponents: updateComponents,
+          target: e.target.parentElement,
+          navigateToEdit: navigateToEdit,
+        },
+      });
+    } catch {
+      console.log("Error");
+    }
   };
   // Create a handler for input form submission
   const submitHandler = (e) => {
@@ -51,7 +65,6 @@ const Add = () => {
       let newArr = [...components, reactComponent];
       // Update the state
       updateComponents(newArr);
-
       // Make a post request to the backend
 
       //////////////////// Make a test which clicks the button when empty and very long strings ///////////

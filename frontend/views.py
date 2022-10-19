@@ -8,4 +8,5 @@ def index(request, *args, **kwargs):
 
 
 def redirectToHome(request, *args, **kwargs):
-    return redirect('')
+    print("Came here")
+    return redirect('/')

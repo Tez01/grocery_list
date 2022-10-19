@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Function: getTimestamp
 // Returns : The string for current datetime in timestamp format which can be used as unique identifier.
@@ -32,8 +32,9 @@ function toggleButtonText(e) {
 }
 
 const reactListElement = (data, navigateToEdit) => {
+  const key = getTimestamp();
   return (
-    <div className="list__element " key={getTimestamp()}>
+    <div className="list__element " key={key} id={key}>
       <button
         type="button"
         className="list__element__button list__element__button--data bg-primary-color button--hidden"
