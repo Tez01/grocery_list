@@ -61,7 +61,6 @@ const Add = () => {
       // Filter out the array of list items except the item with this id
       let newItems = stateRef.current.filter((item) => {
         if (item.props.id === itemId) {
-          console.log(itemId);
           // Make a delete request to the database for this id
         }
         return item.props.id !== itemId;
