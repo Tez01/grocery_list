@@ -188,3 +188,7 @@ h3{
 .bg-button-delete{
     background-color: var(--clr-negative);
 }
+
+.bg-button-accent-2{
+    background-color: var(--clr-accent-2);
+}

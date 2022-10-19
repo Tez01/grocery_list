@@ -13,9 +13,10 @@ import { useNavigate } from "react-router-dom";
 
 const Add = () => {
   // Create a state variable to add list elements dynamically
-  const [components, updateComponents] = useState([]);
+  const [listItems, updateListItems] = useState([]);
   const stateRef = useRef();
-  stateRef.current = components;
+  stateRef.current = listItems;
+
   // This useEffect hook will only run once so as to fetch data from database,
   // on first time this component is rendered.
   useEffect(() => {
@@ -25,7 +26,7 @@ const Add = () => {
     // Convert these to React Components
     let reactComponents = Array.from(getReactComponents(currentListItems));
     // Update the state variable for list components
-    updateComponents([...components, ...reactComponents]);
+    updateListItems([...listItems, ...reactComponents]);
   }, []);
 
   // Create handler for edit button clicked
@@ -37,8 +38,8 @@ const Add = () => {
       navigate("/edit", {
         replace: true,
         state: {
-          components: stateRef.current,
-          updateComponents: updateComponents,
+          listItems: stateRef.current,
+          updateListItems: updateListItems,
           target: e.target.parentElement,
           navigateToEdit: navigateToEdit,
         },
@@ -47,10 +48,22 @@ const Add = () => {
       console.log("Error");
     }
   };
+
   // Create a handler for delete task
-  const deleteItem = (e) => {
+  const deleteHandler = (e, itemId) => {
     // Prevent submit action of button
     e.preventDefault();
+
+    // // Get the parent element for this delete button
+    const parentElement = e.target.parentElement;
+    if (parentElement != null) {
+      // Filter out the array of list items except the item with this id
+      let newItems = stateRef.current.filter((item) => {
+        return item.props.id !== itemId;
+      });
+
+      updateListItems(newItems);
+    }
   };
 
   // Create a handler for input form submission
@@ -67,24 +80,61 @@ const Add = () => {
       // Clear the input field
       inputElement.value = "";
       // Convert to react component
-      const reactComponent = reactListElement(textInput, navigateToEdit);
+      const reactComponent = reactListElement(
+        textInput,
+        navigateToEdit,
+        deleteHandler
+      );
 
       // Push to current array of components
-      let newArr = [...components, reactComponent];
+      let newArr = [...listItems, reactComponent];
       // Update the state
-      updateComponents(newArr);
+      updateListItems(newArr);
       // Make a post request to the backend
 
       //////////////////// Make a test which clicks the button when empty and very long strings ///////////
     }
   };
+
+  //   // Add handler for purchased button
+  //   const purchasedHandler = (e,itemId) => {
+  // // Prevent submit action of button
+  // e.preventDefault();
+
+  // // Get the parent element for this purchase button
+  // const parentElement = e.target.parentElement;
+  // if (parentElement != null) {
+  //   // Filter out the array of list items except the item with this id
+  //   let newItems = stateRef.current.map((item) => {
+  //       if(item.props.id == itemId){
+  //         // If item is not purchased, make it purchased
+  //         if(parentElement.dataset.purchased == "0"){
+
+  //         parentElement.classList.remove("item--not-purchased");
+  //         parentElement.classList.add("item--purchased")
+  //         parentElement.dataset.purchased = "1"
+  //         }
+  //         else{
+  //           // If item is purchased, make it unpurchased
+  //             parentElement.classList.remove("item--purchased");
+  //             parentElement.classList.add("item--not-purchased")
+  //             parentElement.dataset.purchased = "0"
+
+  //       };
+  //       return item;
+
+  //       }
+
+  // }
+  //   }
+
   return (
     <div className="Add">
       {/* Pass the above submitHandler as prop to Utilities,
       so that when form in utilities is submitted it runs this function*/}
       <Utilities submitHandler={addItem} />;
       {/* Pass the above state variable of lists as prop to List */}
-      <List components={components} />;
+      <List listItems={listItems} />;
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 
-function List({ components }) {
-  return <div className="list container">{components}</div>;
+function List({ listItems }) {
+  // useEffect(() =>{})
+  return <div className="list container">{listItems}</div>;
 }
 
 export default List;

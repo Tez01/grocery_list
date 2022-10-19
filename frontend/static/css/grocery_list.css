@@ -116,4 +116,8 @@
     max-height: 5vh;
     min-height: var(--data-button-height)
  }
-
+ .list__element__button--purchased{
+    flex-grow:1;
+    max-height: 5vh;
+    min-height: var(--data-button-height)
+ }

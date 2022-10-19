@@ -1,5 +1,11 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPen,
+  faCircleCheck,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Function: getTimestamp
 // Returns : The string for current datetime in timestamp format which can be used as unique identifier.
@@ -20,18 +26,18 @@ function toggleButtonText(e) {
   // See these classes in grocery_list.css
   /////////////////////// Write test to see this functionality ///////////////////////////////
   const targetElement = e.target;
-  if (targetElement.data == "0") {
+  if (targetElement.dataset.size == "0") {
     targetElement.classList.remove("button--hidden");
     targetElement.classList.add("button--expand");
-    targetElement.data = "1";
+    targetElement.dataset.size = "1";
   } else {
     targetElement.classList.remove("button--expand");
     targetElement.classList.add("button--hidden");
-    targetElement.data = "0";
+    targetElement.dataset.size = "0";
   }
 }
 
-const reactListElement = (data, navigateToEdit) => {
+const reactListElement = (data, navigateToEdit, deleteHandler) => {
   const key = getTimestamp();
   return (
     <div className="list__element " key={key} id={key}>
@@ -39,7 +45,8 @@ const reactListElement = (data, navigateToEdit) => {
         type="button"
         className="list__element__button list__element__button--data bg-primary-color button--hidden"
         onClick={toggleButtonText}
-        data="0"
+        data-size="0"
+        // data-purchased="0"
       >
         {data}
       </button>
@@ -48,13 +55,21 @@ const reactListElement = (data, navigateToEdit) => {
         className="list__element__button list__element__button--edit bg-button-save text-primary-color"
         onClick={navigateToEdit}
       >
-        Edit
+        <FontAwesomeIcon icon={faPen} />
       </button>
       <button
         type="button"
         className="list__element__button list__element__button--delete bg-button-delete text-primary-color"
+        onClick={(e) => deleteHandler(e, key)}
       >
-        Delete
+        <FontAwesomeIcon icon={faTrashCan} />
+      </button>
+      <button
+        type="button"
+        className="list__element__button list__element__button--purchased bg-button-accent-2 text-primary-color"
+        // onClick={(e) => deleteHandler(e, key)}
+      >
+        <FontAwesomeIcon icon={faCircleCheck} />
       </button>
     </div>
   );
