@@ -37,22 +37,40 @@ function toggleButtonText(e) {
   }
 }
 
-const reactListElement = (data, navigateToEdit, deleteHandler) => {
-  const key = getTimestamp();
+// By default this function sets the item class as not purchased and set the data purchased property to 0(not purchased)
+// data size is set 0 as well for input button
+const reactListElement = (
+  key,
+  data,
+  navigateToEdit,
+  deleteHandler,
+  purchasedHandler,
+  visibility,
+  editable
+) => {
   return (
-    <div className="list__element " key={key} id={key}>
+    <div
+      className={`list__element ${
+        visibility ? "item--not-purchased" : "item--purchased"
+      }`}
+      key={key}
+      id={key}
+      purchased={visibility}
+      editable={visibility}
+    >
       <button
         type="button"
         className="list__element__button list__element__button--data bg-primary-color button--hidden"
         onClick={toggleButtonText}
         data-size="0"
-        // data-purchased="0"
       >
         {data}
       </button>
       <button
         type="button"
-        className="list__element__button list__element__button--edit bg-button-save text-primary-color"
+        className={`list__element__button list__element__button--edit bg-button-save text-primary-color ${
+          editable ? "button--clickable" : "button--unclickable"
+        }`}
         onClick={navigateToEdit}
       >
         <FontAwesomeIcon icon={faPen} />
@@ -67,7 +85,7 @@ const reactListElement = (data, navigateToEdit, deleteHandler) => {
       <button
         type="button"
         className="list__element__button list__element__button--purchased bg-button-accent-2 text-primary-color"
-        // onClick={(e) => deleteHandler(e, key)}
+        onClick={(e) => purchasedHandler(e, key)}
       >
         <FontAwesomeIcon icon={faCircleCheck} />
       </button>

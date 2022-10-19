@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import * as ReactDOM from "react-dom";
 import Utilities from "./Utilities";
 import List from "./List";
 import {
@@ -59,6 +60,10 @@ const Add = () => {
     if (parentElement != null) {
       // Filter out the array of list items except the item with this id
       let newItems = stateRef.current.filter((item) => {
+        if (item.props.id === itemId) {
+          console.log(itemId);
+          // Make a delete request to the database for this id
+        }
         return item.props.id !== itemId;
       });
 
@@ -79,54 +84,67 @@ const Add = () => {
     if (!/^\s*$/.test(textInput)) {
       // Clear the input field
       inputElement.value = "";
+
+      // Get a unique id from timestamp
+      const key = getTimestamp();
+      // item visibility = 1 (for unpurchased)
+      const visibility = 1;
+      const editable = 1;
       // Convert to react component
       const reactComponent = reactListElement(
+        key,
         textInput,
         navigateToEdit,
-        deleteHandler
+        deleteHandler,
+        purchasedHandler,
+        visibility,
+        editable
       );
 
       // Push to current array of components
       let newArr = [...listItems, reactComponent];
       // Update the state
       updateListItems(newArr);
-      // Make a post request to the backend
+      // Make a post request to the backend to add this item with textInput and key and visibility = 1
 
       //////////////////// Make a test which clicks the button when empty and very long strings ///////////
     }
   };
 
-  //   // Add handler for purchased button
-  //   const purchasedHandler = (e,itemId) => {
-  // // Prevent submit action of button
-  // e.preventDefault();
+  // Add handler for purchased button
+  const purchasedHandler = (e, itemId) => {
+    // Prevent submit action of button
+    e.preventDefault();
 
-  // // Get the parent element for this purchase button
-  // const parentElement = e.target.parentElement;
-  // if (parentElement != null) {
-  //   // Filter out the array of list items except the item with this id
-  //   let newItems = stateRef.current.map((item) => {
-  //       if(item.props.id == itemId){
-  //         // If item is not purchased, make it purchased
-  //         if(parentElement.dataset.purchased == "0"){
+    // Filter out the array of list items except the item with this id
+    let newItems = stateRef.current.map((item) => {
+      if (item.props.id === itemId) {
+        let visibility = 1;
+        let editable = 1;
+        if (item.props.purchased === 1) {
+          visibility = 0;
+          editable = 0;
+        } else {
+          visibility = 1;
+          editable = 1;
+        }
+        const textInput = item.props.children[0].props.children;
+        let newElement = reactListElement(
+          itemId,
+          textInput,
+          navigateToEdit,
+          deleteHandler,
+          purchasedHandler,
+          visibility,
+          editable
+        );
+        return newElement;
+      }
 
-  //         parentElement.classList.remove("item--not-purchased");
-  //         parentElement.classList.add("item--purchased")
-  //         parentElement.dataset.purchased = "1"
-  //         }
-  //         else{
-  //           // If item is purchased, make it unpurchased
-  //             parentElement.classList.remove("item--purchased");
-  //             parentElement.classList.add("item--not-purchased")
-  //             parentElement.dataset.purchased = "0"
-
-  //       };
-  //       return item;
-
-  //       }
-
-  // }
-  //   }
+      return item;
+    });
+    updateListItems(newItems);
+  };
 
   return (
     <div className="Add">

@@ -76,7 +76,12 @@
     /* Defining this variable because height of edit and delete button depends on this */
     --data-button-height: 5vh;
 }
-
+.item--not-purchased{
+    filter: brightness(100%);
+}
+.item--purchased{
+    filter: brightness(50%);
+}
 .list__element__button{
     border:none   ;
     
@@ -121,3 +126,12 @@
     max-height: 5vh;
     min-height: var(--data-button-height)
  }
+
+ .button--clickable{
+    pointer-events:auto;
+ }
+ .button--unclickable{
+    pointer-events: none;
+ }
+
+
