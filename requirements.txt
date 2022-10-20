@@ -10,6 +10,8 @@ exceptiongroup==1.0.0rc9
 gunicorn==20.1.0
 h11==0.14.0
 idna==3.4
+mysql-client==0.0.1
+mysqlclient==2.1.1
 outcome==1.2.0
 psycopg2==2.9.4
 PySocks==1.7.1
