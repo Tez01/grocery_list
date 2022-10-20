@@ -26,6 +26,7 @@ function Utilities({ edit, submitHandler }) {
               placeholder="Update item..."
               value={input}
               onChange={handleChange}
+              autoFocus
             />
             <button className="utilities__form__button fs-button fw-semi-bold bg-accent-1">
               Update
@@ -39,6 +40,7 @@ function Utilities({ edit, submitHandler }) {
               className="utilities__form__input fs-body fw-regular"
               type="text"
               placeholder="Add new item..."
+              autoFocus
             ></input>
             <button className="utilities__form__button fs-button fw-semi-bold bg-accent-1">
               Add

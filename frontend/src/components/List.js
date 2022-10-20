@@ -15,7 +15,6 @@ function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
   });
 
   const submitUpdate = (value) => {
-    console.log(value);
     editHandler(value.id, value.textData);
     setEdit({
       id: null,

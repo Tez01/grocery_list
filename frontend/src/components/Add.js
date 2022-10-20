@@ -122,7 +122,7 @@ const Add = () => {
   };
 
   const editHandler = (itemId, newValue) => {
-    console.log(newValue);
+    // Only accept valid input
     if (!/^\s*$/.test(newValue)) {
       let newListItems = listItems.map((item) => {
         if (item.id === itemId) {
