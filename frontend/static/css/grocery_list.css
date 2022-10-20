@@ -13,17 +13,26 @@
         width:90%;
         margin:auto;
     }
-    .list__element__button--data{
-        border:none   ;
-        width:70%;
-        height:5vh;
-    }
     .list__element__button--edit{
-        flex-grow: 2;
+        flex-grow: 1;
+        min-width: 15%
      }
     .list__element__button--delete{
         flex-grow:1;
+        min-width: 15%;
+
      }
+
+    .list__element__button--purchased{
+        flex-grow:1;
+        min-width: 15%;
+        
+     }
+     .list__element__button--data{
+        border:none   ;
+        width:auto;
+        height:5vh;
+    }
 }
 
 /*************Header *****************/
