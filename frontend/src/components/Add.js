@@ -55,23 +55,19 @@ const Add = () => {
     // Prevent submit action of button
     e.preventDefault();
 
-    // // Get the parent element for this delete button
-    const parentElement = e.target.parentElement;
-    if (parentElement != null) {
-      // Filter out the array of list items except the item with this id
-      let newItems = stateRef.current.filter((item) => {
-        if (item.props.id === itemId) {
-          // Make a delete request to the database for this id
-        }
-        return item.props.id !== itemId;
-      });
+    // Filter out the array of list items except the item with this id
+    let newItems = stateRef.current.filter((item) => {
+      if (item.id === itemId) {
+        // Make a delete request to the database for this id
+      }
+      return item.id !== itemId;
+    });
 
-      updateListItems(newItems);
-    }
+    updateListItems(newItems);
   };
 
   // Create a handler for input form submission
-  const addItem = (e) => {
+  const addHandler = (e) => {
     // Prevent from submission of form
     e.preventDefault();
     // Get data from input
@@ -90,18 +86,21 @@ const Add = () => {
       const visibility = 1;
       const editable = 1;
       // Convert to react component
-      const reactComponent = reactListElement(
-        key,
-        textInput,
-        navigateToEdit,
-        deleteHandler,
-        purchasedHandler,
-        visibility,
-        editable
-      );
+      // const reactComponent = reactListElement(
+      //   key,
+      //   textInput,
+      //   navigateToEdit,
+      //   deleteHandler,
+      //   purchasedHandler,
+      //   visibility,
+      //   editable
+      // );
 
       // Push to current array of components
-      let newArr = [...listItems, reactComponent];
+      let newArr = [
+        { id: key, textData: textInput, purchased: 0 },
+        ...listItems,
+      ];
       // Update the state
       updateListItems(newArr);
       // Make a post request to the backend to add this item with textInput and key and visibility = 1
@@ -111,32 +110,27 @@ const Add = () => {
   };
 
   // Add handler for purchased button
-  const purchasedHandler = (e, itemId) => {
+  const purchaseHandler = (e, itemId) => {
     // Prevent submit action of button
     e.preventDefault();
 
     // Filter out the array of list items except the item with this id
     let newItems = stateRef.current.map((item) => {
-      if (item.props.id === itemId) {
-        let visibility = 1;
-        let editable = 1;
-        if (item.props.purchased === 1) {
-          visibility = 0;
-          editable = 0;
+      // Toggle visibility and editable if id matches
+      if (item.id === itemId) {
+        if (item.purchased === 1) {
+          item.purchased = 0;
         } else {
-          visibility = 1;
-          editable = 1;
+          item.purchased = 1;
         }
-        const textInput = item.props.children[0].props.children;
-        let newElement = reactListElement(
-          itemId,
-          textInput,
-          navigateToEdit,
-          deleteHandler,
-          purchasedHandler,
-          visibility,
-          editable
-        );
+
+        // Get text input
+        const textInput = item.textData;
+        let newElement = {
+          id: itemId,
+          textData: textInput,
+          purchased: item.purchased,
+        };
         return newElement;
       }
 
@@ -149,9 +143,14 @@ const Add = () => {
     <div className="Add">
       {/* Pass the above submitHandler as prop to Utilities,
       so that when form in utilities is submitted it runs this function*/}
-      <Utilities submitHandler={addItem} />;
+      <Utilities submitHandler={addHandler} />;
       {/* Pass the above state variable of lists as prop to List */}
-      <List listItems={listItems} />;
+      <List
+        listItems={listItems}
+        purchaseHandler={purchaseHandler}
+        deleteHandler={deleteHandler}
+      />
+      ;
     </div>
   );
 };
