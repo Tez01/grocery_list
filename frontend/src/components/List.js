@@ -1,14 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPen,
   faCircleCheck,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
-
+import Utilities from "./Utilities";
 import { toggleButtonText } from "../utils";
 
-function List({ listItems, purchaseHandler, deleteHandler }) {
+function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
+  const [edit, setEdit] = useState({
+    id: null,
+    value: "",
+  });
+
+  const submitUpdate = (value) => {
+    console.log(value);
+    editHandler(value.id, value.textData);
+    setEdit({
+      id: null,
+      value: "",
+    });
+  };
+
+  if (edit.id) {
+    return <Utilities edit={edit} submitHandler={submitUpdate} />;
+  }
   return (
     <div className="list container">
       {listItems.map((item) => {
@@ -35,6 +52,7 @@ function List({ listItems, purchaseHandler, deleteHandler }) {
               className={`list__element__button list__element__button--edit bg-button-save text-primary-color ${
                 item.purchased ? "button--unclickable" : "button--clickable"
               }`}
+              onClick={() => setEdit({ id: item.id, value: item.textData })}
               // onClick={navigateToEdit}
             >
               <FontAwesomeIcon icon={faPen} />

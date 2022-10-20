@@ -4,9 +4,6 @@ import Utilities from "./Utilities";
 import List from "./List";
 import {
   testGetReactComponents,
-  getReactComponents,
-  reactListElement,
-  toggleButtonText,
   getTimestamp,
   getCurrentItems,
 } from "../utils";
@@ -24,10 +21,8 @@ const Add = () => {
     // Get current list items from database
     const currentListItems = getCurrentItems();
 
-    // Convert these to React Components
-    let reactComponents = Array.from(getReactComponents(currentListItems));
     // Update the state variable for list components
-    updateListItems([...listItems, ...reactComponents]);
+    updateListItems([...listItems, ...currentListItems]);
   }, []);
 
   // Create handler for edit button clicked
@@ -82,19 +77,6 @@ const Add = () => {
 
       // Get a unique id from timestamp
       const key = getTimestamp();
-      // item visibility = 1 (for unpurchased)
-      const visibility = 1;
-      const editable = 1;
-      // Convert to react component
-      // const reactComponent = reactListElement(
-      //   key,
-      //   textInput,
-      //   navigateToEdit,
-      //   deleteHandler,
-      //   purchasedHandler,
-      //   visibility,
-      //   editable
-      // );
 
       // Push to current array of components
       let newArr = [
@@ -139,6 +121,27 @@ const Add = () => {
     updateListItems(newItems);
   };
 
+  const editHandler = (itemId, newValue) => {
+    console.log(newValue);
+    if (!/^\s*$/.test(newValue)) {
+      let newListItems = listItems.map((item) => {
+        if (item.id === itemId) {
+          let newElement = {
+            id: itemId,
+            textData: newValue,
+            // Again make purchased to 0 (This is just extra security which is redundant,
+            // because edit button won't be pressed when purchased)
+            purchased: 0,
+          };
+          return newElement;
+          // Make a PUT request to database
+        }
+        return item;
+      });
+      updateListItems(newListItems);
+    }
+  };
+
   return (
     <div className="Add">
       {/* Pass the above submitHandler as prop to Utilities,
@@ -149,6 +152,7 @@ const Add = () => {
         listItems={listItems}
         purchaseHandler={purchaseHandler}
         deleteHandler={deleteHandler}
+        editHandler={editHandler}
       />
       ;
     </div>
