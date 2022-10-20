@@ -1,132 +1,141 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPen,
-  faCircleCheck,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect, useRef } from "react";
+import * as ReactDOM from "react-dom";
 import Utilities from "./Utilities";
-import { toggleButtonText } from "../utils";
+import List from "./ListItems";
+import {
+  testGetReactComponents,
+  getTimestamp,
+  getCurrentItems,
+} from "../utils";
 
-function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
-  const [edit, setEdit] = useState({
-    id: null,
-    value: "",
-  });
+const Add = () => {
+  // Create a state variable to add list elements dynamically
+  const [listItems, updateListItems] = useState([]);
+  const stateRef = useRef();
+  stateRef.current = listItems;
 
-  const submitUpdate = (value) => {
-    editHandler(value.id, value.textData);
-    setEdit({
-      id: null,
-      value: "",
+  // This useEffect hook will only run once so as to fetch data from database,
+  // on first time this component is rendered.
+  useEffect(() => {
+    // Get current list items from database
+    const currentListItems = getCurrentItems();
+
+    // Update the state variable for list components
+    updateListItems([...listItems, ...currentListItems]);
+  }, []);
+
+  // Create a handler for delete task
+  const deleteHandler = (e, itemId) => {
+    // Prevent submit action of button
+    e.preventDefault();
+
+    // Filter out the array of list items except the item with this id
+    let newItems = stateRef.current.filter((item) => {
+      if (item.id === itemId) {
+        // Make a delete request to the database for this id
+      }
+      return item.id !== itemId;
     });
+
+    updateListItems(newItems);
   };
 
-  if (edit.id) {
-    return <Utilities edit={edit} submitHandler={submitUpdate} />;
-  }
+  // Create a handler for input form submission
+  const addHandler = (e) => {
+    // Prevent from submission of form
+    e.preventDefault();
+    // Get data from input
+    const inputElement = document.querySelector(".utilities__form__input");
+    const textInput = inputElement.value;
+
+    /////////// Test here more for inputs ///////////
+    // Convert to react element if input is not conatining only spaces and updateComponent list
+    if (!/^\s*$/.test(textInput)) {
+      // Clear the input field
+      inputElement.value = "";
+
+      // Get a unique id from timestamp
+      const key = getTimestamp();
+
+      // Push to current array of components
+      let newArr = [
+        { id: key, textData: textInput, purchased: 0 },
+        ...listItems,
+      ];
+      // Update the state
+      updateListItems(newArr);
+      // Make a post request to the backend to add this item with textInput and key and visibility = 1
+
+      //////////////////// Make a test which clicks the button when empty and very long strings ///////////
+    }
+  };
+
+  // Add handler for purchased button
+  const purchaseHandler = (e, itemId) => {
+    // Prevent submit action of button
+    e.preventDefault();
+
+    // Filter out the array of list items except the item with this id
+    let newItems = stateRef.current.map((item) => {
+      // Toggle visibility and editable if id matches
+      if (item.id === itemId) {
+        if (item.purchased === 1) {
+          item.purchased = 0;
+        } else {
+          item.purchased = 1;
+        }
+
+        // Get text input
+        const textInput = item.textData;
+        let newElement = {
+          id: itemId,
+          textData: textInput,
+          purchased: item.purchased,
+        };
+        return newElement;
+      }
+
+      return item;
+    });
+    updateListItems(newItems);
+  };
+
+  const editHandler = (itemId, newValue) => {
+    // Only accept valid input
+    if (!/^\s*$/.test(newValue)) {
+      let newListItems = listItems.map((item) => {
+        if (item.id === itemId) {
+          let newElement = {
+            id: itemId,
+            textData: newValue,
+            // Again make purchased to 0 (This is just extra security which is redundant,
+            // because edit button won't be pressed when purchased)
+            purchased: 0,
+          };
+          return newElement;
+          // Make a PUT request to database
+        }
+        return item;
+      });
+      updateListItems(newListItems);
+    }
+  };
+
   return (
-    <div className="list container">
-      {listItems.map((item) => {
-        return (
-          <div
-            className={`list__element ${
-              item.purchased ? "item--purchased" : "item--not-purchased"
-            }`}
-            key={item.id}
-            id={item.id}
-            purchased={item.visibility}
-            editable={item.visibility}
-          >
-            <button
-              type="button"
-              className="list__element__button list__element__button--data bg-primary-color button--hidden"
-              onClick={toggleButtonText}
-              data-size="0"
-            >
-              {item.textData}
-            </button>
-            <button
-              type="button"
-              className={`list__element__button list__element__button--edit bg-button-save text-primary-color ${
-                item.purchased ? "button--unclickable" : "button--clickable"
-              }`}
-              onClick={() => setEdit({ id: item.id, value: item.textData })}
-              // onClick={navigateToEdit}
-            >
-              <FontAwesomeIcon icon={faPen} />
-            </button>
-            <button
-              type="button"
-              className="list__element__button list__element__button--delete bg-button-delete text-primary-color"
-              onClick={(e) => deleteHandler(e, item.id)}
-            >
-              <FontAwesomeIcon icon={faTrashCan} />
-            </button>
-            <button
-              type="button"
-              className="list__element__button list__element__button--purchased bg-button-accent-2 text-primary-color"
-              onClick={(e) => purchaseHandler(e, item.id)}
-            >
-              <FontAwesomeIcon icon={faCircleCheck} />
-            </button>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-// By default this function sets the item class as not purchased and set the data purchased property to 0(not purchased)
-// data size is set 0 as well for input button
-const reactListElement = (
-  key,
-  data,
-  navigateToEdit,
-  deleteHandler,
-  purchasedHandler,
-  visibility,
-  editable
-) => {
-  return (
-    <div
-      className={`list__element ${
-        item.purchased ? "item--purchased" : "item--not-purchased"
-      }`}
-      key={key}
-      id={key}
-    >
-      <button
-        type="button"
-        className="list__element__button list__element__button--data bg-primary-color button--hidden"
-        onClick={toggleButtonText}
-        data-size="0"
-      >
-        {data}
-      </button>
-      <button
-        type="button"
-        className={`list__element__button list__element__button--edit bg-button-save text-primary-color ${
-          item.purchased ? "button--clickable" : "button--unclickable"
-        }`}
-        onClick={navigateToEdit}
-      >
-        <FontAwesomeIcon icon={faPen} />
-      </button>
-      <button
-        type="button"
-        className="list__element__button list__element__button--delete bg-button-delete text-primary-color"
-        onClick={(e) => deleteHandler(e, key)}
-      >
-        <FontAwesomeIcon icon={faTrashCan} />
-      </button>
-      <button
-        type="button"
-        className="list__element__button list__element__button--purchased bg-button-accent-2 text-primary-color"
-        onClick={(e) => purchasedHandler(e, key)}
-      >
-        <FontAwesomeIcon icon={faCircleCheck} />
-      </button>
+    <div className="Add">
+      {/* Pass the above submitHandler as prop to Utilities,
+      so that when form in utilities is submitted it runs this function*/}
+      <Utilities submitHandler={addHandler} />;
+      {/* Pass the above state variable of lists as prop to List */}
+      <List
+        listItems={listItems}
+        purchaseHandler={purchaseHandler}
+        deleteHandler={deleteHandler}
+        editHandler={editHandler}
+      />
+      ;
     </div>
   );
 };
-export default List;
+
+export default Add;
