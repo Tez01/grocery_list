@@ -59,7 +59,7 @@ const Add = () => {
 
       // Push to current array of components
       let newArr = [
-        { id: key, textData: textInput, purchased: 0 },
+        { id: key, textData: textInput, purchased: false },
         ...listItems,
       ];
       // Update the state
@@ -79,10 +79,10 @@ const Add = () => {
     let newItems = stateRef.current.map((item) => {
       // Toggle visibility and editable if id matches
       if (item.id === itemId) {
-        if (item.purchased === 1) {
-          item.purchased = 0;
+        if (item.purchased === true) {
+          item.purchased = false;
         } else {
-          item.purchased = 1;
+          item.purchased = true;
         }
 
         // Get text input
@@ -108,9 +108,9 @@ const Add = () => {
           let newElement = {
             id: itemId,
             textData: newValue,
-            // Again make purchased to 0 (This is just extra security which is redundant,
+            // Again make purchased to false(This is just extra security which is redundant,
             // because edit button won't be pressed when purchased)
-            purchased: 0,
+            purchased: false,
           };
           return newElement;
           // Make a PUT request to database
