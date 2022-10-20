@@ -1,0 +1,15 @@
+<h3>Signup</h3>
+{%if success%}
+<div style="color: green">{{success}}</div>
+<div>Please login here</div>
+<a href='{%url 'logout'%}'>Login</a>
+{%else%}
+ {%if failure%}
+<div style="color: red">{{failure}}</div>
+{%endif%}
+<form method="POST" action="">
+  {% csrf_token %} {{form.as_p}}
+
+  <input type="submit" name="Create User" />
+</form>
+{%endif%}

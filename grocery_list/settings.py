@@ -36,6 +36,7 @@ ALLOWED_HOSTS = ['grocery-list-maker-app.herokuapp.com',
 INSTALLED_APPS = [
     'frontend',
     'api',
+    'users',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,6 +85,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'heroku_bb3dcf80f9f7639',
+    #     'USER': 'be18b2b352708d',
+    #     'PASSWORD': 'a36de871',
+    #     'HOST': 'us-cdbr-east-06.cleardb.net',
+    #     'PORT': '3306',
+    # }
 }
 
 

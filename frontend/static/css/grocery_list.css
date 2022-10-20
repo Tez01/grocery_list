@@ -13,6 +13,7 @@
         width:90%;
         margin:auto;
     }
+    
     .list__element__button--edit{
         flex-grow: 1;
         min-width: 15%
@@ -124,6 +125,7 @@
     flex-grow: 1;
     max-height: 5vh;
     min-height: var(--data-button-height)
+    
  }
 .list__element__button--delete{
     flex-grow:1;
