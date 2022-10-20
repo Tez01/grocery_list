@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c8udle&&ivqm^8$-q-z$6o0qb22gvg9jf8bg$9hz5supb%(_*c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['grocery-list-maker-app.herokuapp.com',
                  '127.0.0.1', 'localhost']
