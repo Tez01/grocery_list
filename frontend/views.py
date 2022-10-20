@@ -4,6 +4,10 @@ from django.shortcuts import render, redirect
 
 
 def index(request, *args, **kwargs):
+    if not request.user.is_authenticated:
+        return redirect('users/login')
+
+    # If authenticated render the frontend
     return render(request, 'frontend/index.html')
 
 
