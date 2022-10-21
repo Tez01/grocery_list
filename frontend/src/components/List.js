@@ -8,7 +8,7 @@ import {
   getCurrentItems,
 } from "../utils";
 
-const Add = () => {
+const Add = async () => {
   // Create a state variable to add list elements dynamically
   const [listItems, updateListItems] = useState([]);
   const stateRef = useRef();
@@ -18,7 +18,7 @@ const Add = () => {
   // on first time this component is rendered.
   useEffect(() => {
     // Get current list items from database
-    const currentListItems = getCurrentItems();
+    // const currentListItems = await fetch('api/')
 
     // Update the state variable for list components
     updateListItems([...listItems, ...currentListItems]);
