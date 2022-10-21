@@ -1,4 +1,5 @@
 # grocery_list
+![](https://github.com/Tez01/grocery_list/blob/main/demo.gif)
 A grocery list maker responsive web application developed using React framework for the frontend and Django framework for the backend. The data is saved in a PostgreSQL database. The application is hosted on Heroku which can be accessed by following the link [here](https://grocery-list-maker-app.herokuapp.com/). 
 
 # Installation instruction
