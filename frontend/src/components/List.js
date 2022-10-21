@@ -6,8 +6,16 @@ import {
   testGetReactComponents,
   getTimestamp,
   getCurrentItems,
+  getCookie,
+  updateData,
+  deleteData,
 } from "../utils";
-
+import axios from "axios";
+// CSRF token for post request
+axios.defaults.withCredentials = true;
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
 const Add = () => {
   // Create a state variable to add list elements dynamically
   const [listItems, updateListItems] = useState([]);
@@ -18,21 +26,41 @@ const Add = () => {
   // on first time this component is rendered.
   useEffect(() => {
     // Get current list items from database
-    const currentListItems = getCurrentItems();
+    const fetchData = async () => {
+      const currentListItems = await fetch("api/");
+      return currentListItems;
+    };
 
-    // Update the state variable for list components
-    updateListItems([...listItems, ...currentListItems]);
+    const currentListItems = fetchData()
+      .then((response) => response.json())
+      .then((data) => {
+        const items = data.data.reverse(); // Because data has a data element
+        // Update the state variable for list components
+        updateListItems([...listItems, ...items]);
+        console.log("Fetched from database");
+      });
   }, []);
 
   // Create a handler for delete task
   const deleteHandler = (e, itemId) => {
     // Prevent submit action of button
     e.preventDefault();
-
+    const csrf = getCookie("CSRF-TOKEN");
     // Filter out the array of list items except the item with this id
     let newItems = stateRef.current.filter((item) => {
       if (item.id === itemId) {
-        // Make a delete request to the database for this id
+        const response = axios.delete(`api/${itemId}`);
+        response
+          .then((response) => console.log(response))
+          .catch((err) => {
+            console.log(err);
+          });
+        // // Make a delete request to the database for this id
+        // const response = deleteData({ id: itemId })
+        //   .then((response) => console.log(response))
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
       }
       return item.id !== itemId;
     });
@@ -58,13 +86,22 @@ const Add = () => {
       const key = getTimestamp();
 
       // Push to current array of components
-      let newArr = [
-        { id: key, textData: textInput, purchased: false },
-        ...listItems,
-      ];
+      const newListItem = { id: key, text: textInput, purchased: false };
+      let newArr = [newListItem, ...listItems];
       // Update the state
       updateListItems(newArr);
-      // Make a post request to the backend to add this item with textInput and key and visibility = 1
+      // Make a post request to the backend to add this item
+
+      const sendData = async () => {
+        const response = await axios.post("api/", JSON.stringify(newListItem));
+
+        return response;
+      };
+      sendData()
+        .then((response) => console.log(response))
+        .catch((err) => {
+          console.log(err);
+        });
 
       //////////////////// Make a test which clicks the button when empty and very long strings ///////////
     }
@@ -75,29 +112,45 @@ const Add = () => {
     // Prevent submit action of button
     e.preventDefault();
 
+    let newPurchaseStatus = null;
+    let textInput = null;
     // Filter out the array of list items except the item with this id
     let newItems = stateRef.current.map((item) => {
       // Toggle visibility and editable if id matches
       if (item.id === itemId) {
         if (item.purchased === true) {
           item.purchased = false;
+          newPurchaseStatus = false;
         } else {
           item.purchased = true;
+          newPurchaseStatus = true;
         }
 
         // Get text input
-        const textInput = item.textData;
+        textInput = item.text;
+
+        // Create new element with purchased field changed
         let newElement = {
           id: itemId,
-          textData: textInput,
+          text: textInput,
           purchased: item.purchased,
         };
+
+        // Make request to database to update data
+
         return newElement;
       }
 
       return item;
     });
+
     updateListItems(newItems);
+
+    updateData({ id: itemId, text: textInput, purchased: newPurchaseStatus })
+      .then((response) => console.log(response))
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const editHandler = (itemId, newValue) => {
@@ -107,13 +160,19 @@ const Add = () => {
         if (item.id === itemId) {
           let newElement = {
             id: itemId,
-            textData: newValue,
+            text: newValue,
             // Again make purchased to false(This is just extra security which is redundant,
             // because edit button won't be pressed when purchased)
             purchased: false,
           };
-          return newElement;
           // Make a PUT request to database
+          const response = updateData(newElement);
+          response
+            .then((response) => console.log(response))
+            .catch((err) => {
+              console.log(err);
+            });
+          return newElement;
         }
         return item;
       });

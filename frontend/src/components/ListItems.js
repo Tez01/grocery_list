@@ -15,7 +15,7 @@ function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
   });
 
   const submitUpdate = (value) => {
-    editHandler(value.id, value.textData);
+    editHandler(value.id, value.text);
     setEdit({
       id: null,
       value: "",
@@ -42,14 +42,14 @@ function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
               onClick={toggleButtonText}
               data-size="0"
             >
-              {item.textData}
+              {item.text}
             </button>
             <button
               type="button"
               className={`list__element__button list__element__button--edit bg-button-save text-primary-color ${
                 item.purchased ? "button--unclickable" : "button--clickable"
               }`}
-              onClick={() => setEdit({ id: item.id, value: item.textData })}
+              onClick={() => setEdit({ id: item.id, value: item.text })}
               // onClick={navigateToEdit}
             >
               <FontAwesomeIcon icon={faPen} />

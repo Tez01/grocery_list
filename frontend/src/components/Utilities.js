@@ -11,7 +11,7 @@ function Utilities({ edit, submitHandler }) {
 
     submitHandler({
       id: edit.id,
-      textData: input,
+      text: input,
     });
     setInput("");
   };

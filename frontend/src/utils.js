@@ -6,7 +6,7 @@ import {
   faCircleCheck,
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
-
+import axios from "axios";
 // Function: getTimestamp
 // Returns : The string for current datetime in timestamp format which can be used as unique identifier.
 // (ms accuracy)
@@ -14,7 +14,7 @@ import {
 function getTimestamp() {
   let d = new Date();
   let timestamp = d.getTime();
-  return `${timestamp}`;
+  return `${timestamp}`.slice(5);
 }
 
 // Function: toggleButtonText
@@ -121,6 +121,42 @@ function testGetReactComponents() {
   console.log(reactComponents);
 }
 
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = jQuery.trim(cookies[i]);
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+const updateData = async (data) => {
+  console.log(data);
+  const response = await axios({
+    method: "put",
+    url: "api/",
+    data: JSON.stringify(data),
+  });
+
+  return response;
+};
+const deleteData = async (data) => {
+  const response = await axios.delete("api/", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: { data: JSON.stringify(data) },
+  });
+
+  return response;
+};
 export {
   testGetReactComponents,
   getReactComponents,
@@ -128,4 +164,7 @@ export {
   toggleButtonText,
   getTimestamp,
   getCurrentItems,
+  getCookie,
+  updateData,
+  deleteData,
 };
