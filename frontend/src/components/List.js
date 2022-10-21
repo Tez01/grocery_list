@@ -6,8 +6,14 @@ import {
   testGetReactComponents,
   getTimestamp,
   getCurrentItems,
+  getCookie,
 } from "../utils";
-
+import axios from "axios";
+// CSRF token for post request
+axios.defaults.withCredentials = true;
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
+const csrf = document.querySelector("[name=csrfmiddlewaretoken]").value;
 const Add = () => {
   // Create a state variable to add list elements dynamically
   const [listItems, updateListItems] = useState([]);
@@ -29,7 +35,7 @@ const Add = () => {
         const items = data.data; // Because data has a data element
         // Update the state variable for list components
         updateListItems([...listItems, ...items]);
-        console.log(data.data);
+        console.log("Fetched from database");
       });
   }, []);
 
@@ -67,13 +73,22 @@ const Add = () => {
       const key = getTimestamp();
 
       // Push to current array of components
-      let newArr = [
-        { id: key, text: textInput, purchased: false },
-        ...listItems,
-      ];
+      const newListItem = { id: key, text: textInput, purchased: false };
+      let newArr = [newListItem, ...listItems];
       // Update the state
       updateListItems(newArr);
-      // Make a post request to the backend to add this item with textInput and key and visibility = 1
+      // Make a post request to the backend to add this item
+
+      const sendData = async () => {
+        const response = await axios.post("api/", JSON.stringify(newListItem));
+
+        return response;
+      };
+      sendData()
+        .then((response) => console.log(response))
+        .catch((err) => {
+          console.log(err);
+        });
 
       //////////////////// Make a test which clicks the button when empty and very long strings ///////////
     }
@@ -84,29 +99,54 @@ const Add = () => {
     // Prevent submit action of button
     e.preventDefault();
 
+    let newPurchaseStatus = null;
+    let textInput = null;
     // Filter out the array of list items except the item with this id
     let newItems = stateRef.current.map((item) => {
       // Toggle visibility and editable if id matches
       if (item.id === itemId) {
         if (item.purchased === true) {
           item.purchased = false;
+          newPurchaseStatus = false;
         } else {
           item.purchased = true;
+          newPurchaseStatus = true;
         }
 
         // Get text input
-        const textInput = item.text;
+        textInput = item.text;
+
+        // Create new element with purchased field changed
         let newElement = {
           id: itemId,
           text: textInput,
           purchased: item.purchased,
         };
+
+        // Make request to database to update data
+
         return newElement;
       }
 
       return item;
     });
+
     updateListItems(newItems);
+    const updateData = async (data) => {
+      console.log(data);
+      const response = await axios({
+        method: "put",
+        url: "api/",
+        data: JSON.stringify(data),
+      });
+
+      return response;
+    };
+    updateData({ id: itemId, text: textInput, purchased: newPurchaseStatus })
+      .then((response) => console.log(response))
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const editHandler = (itemId, newValue) => {
