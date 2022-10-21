@@ -12,7 +12,7 @@ complete virtual environment
 5. Whenever new python libraries are required, the exact version can be translated to requirements.txt file using `pip freeze` command. After this, you would have to stop the container and build it again using `docker-compose up --build`.
 6. Whenever new npm libraries are required they can be added to package.json file in the frontend folder. After this, you would have to stop the container and build it again using `docker-compose up --build`.
 # Troubleshooting
-The docker container has to run two processes once everything is setup : run the webpack and run the django server. However, both the processes consume the terminal and one of them has to be run in background. For this the command `RUN nohup npm --prefix frontend/ run dev&` was added in Dockerfile to run webpack in background. This works for most systems. However, if you don't see changes in the frontend app in your browser, the reason might be that webpack was not started properly. To mitigate this follow the following steps:
+The docker container has to run two processes once everything is setup: run the webpack and run the django server. However, both the processes consume the terminal and one of them has to be run in background. For this the command `RUN nohup npm --prefix frontend/ run dev&` was added in Dockerfile to run webpack in background. This works for most systems. However, if you don't see changes in the frontend app in your browser, the reason might be that webpack was not started properly. To mitigate this, follow the following steps:
 - Get the id of the running container using `docker ps`
 - Use the command `docker exec -it <container-id> /bin/bash` to go inside the container.
 - `cd` to `frontend` directory.
