@@ -1,21 +1,22 @@
 
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
-# Displays basic user info
 
-
+# Displays user info. But this view is replaced by actual app
 def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
 
     # If authenticated
     return render(request, "users/user.html")
+
+# Displays login view, Redirects to homepage if authentication is successful
 
 
 def login_view(request):
@@ -26,12 +27,14 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return render(request, "frontend/index.html")
+            return redirect("/")
         else:
             return render(request, "users/login.html", {
                 "message": "Invalid Credentials!"
             })
     return render(request, "users/login.html")
+
+# Logout view. This functionality can be added in the navbar of the frontend later.
 
 
 def logout_view(request):
@@ -39,6 +42,8 @@ def logout_view(request):
     return render(request, "users/login.html", {
         "message": "Logged out"
     })
+
+# Signup form that uses django's built-in form validation. Redirects to login page on success
 
 
 def signup_view(request):
