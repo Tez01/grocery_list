@@ -18,3 +18,6 @@ The docker container has to run two processes once everything is setup: run the 
 - `cd` to `frontend` directory.
 - Run the webpack manually using `npm run dev`.
 - It is a one time process and now the changes should be visible in the browser
+
+# Data Model
+![](https://github.com/Tez01/grocery_list/blob/main/Data-Flow.svg)
