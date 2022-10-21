@@ -28,7 +28,7 @@ const Add = () => {
       .then((data) => {
         const items = data.data; // Because data has a data element
         // Update the state variable for list components
-        // updateListItems([...listItems, ...items]);
+        updateListItems([...listItems, ...items]);
         console.log(data.data);
       });
   }, []);
@@ -68,7 +68,7 @@ const Add = () => {
 
       // Push to current array of components
       let newArr = [
-        { id: key, textData: textInput, purchased: false },
+        { id: key, text: textInput, purchased: false },
         ...listItems,
       ];
       // Update the state
@@ -95,10 +95,10 @@ const Add = () => {
         }
 
         // Get text input
-        const textInput = item.textData;
+        const textInput = item.text;
         let newElement = {
           id: itemId,
-          textData: textInput,
+          text: textInput,
           purchased: item.purchased,
         };
         return newElement;
@@ -116,7 +116,7 @@ const Add = () => {
         if (item.id === itemId) {
           let newElement = {
             id: itemId,
-            textData: newValue,
+            text: newValue,
             // Again make purchased to false(This is just extra security which is redundant,
             // because edit button won't be pressed when purchased)
             purchased: false,
