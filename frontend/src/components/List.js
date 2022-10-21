@@ -7,6 +7,8 @@ import {
   getTimestamp,
   getCurrentItems,
   getCookie,
+  updateData,
+  deleteData,
 } from "../utils";
 import axios from "axios";
 // CSRF token for post request
@@ -32,7 +34,7 @@ const Add = () => {
     const currentListItems = fetchData()
       .then((response) => response.json())
       .then((data) => {
-        const items = data.data; // Because data has a data element
+        const items = data.data.reverse(); // Because data has a data element
         // Update the state variable for list components
         updateListItems([...listItems, ...items]);
         console.log("Fetched from database");
@@ -43,11 +45,22 @@ const Add = () => {
   const deleteHandler = (e, itemId) => {
     // Prevent submit action of button
     e.preventDefault();
-
+    const csrf = getCookie("CSRF-TOKEN");
     // Filter out the array of list items except the item with this id
     let newItems = stateRef.current.filter((item) => {
       if (item.id === itemId) {
-        // Make a delete request to the database for this id
+        const response = axios.delete(`api/${itemId}`);
+        response
+          .then((response) => console.log(response))
+          .catch((err) => {
+            console.log(err);
+          });
+        // // Make a delete request to the database for this id
+        // const response = deleteData({ id: itemId })
+        //   .then((response) => console.log(response))
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
       }
       return item.id !== itemId;
     });
@@ -132,16 +145,7 @@ const Add = () => {
     });
 
     updateListItems(newItems);
-    const updateData = async (data) => {
-      console.log(data);
-      const response = await axios({
-        method: "put",
-        url: "api/",
-        data: JSON.stringify(data),
-      });
 
-      return response;
-    };
     updateData({ id: itemId, text: textInput, purchased: newPurchaseStatus })
       .then((response) => console.log(response))
       .catch((err) => {
@@ -161,8 +165,14 @@ const Add = () => {
             // because edit button won't be pressed when purchased)
             purchased: false,
           };
-          return newElement;
           // Make a PUT request to database
+          const response = updateData(newElement);
+          response
+            .then((response) => console.log(response))
+            .catch((err) => {
+              console.log(err);
+            });
+          return newElement;
         }
         return item;
       });

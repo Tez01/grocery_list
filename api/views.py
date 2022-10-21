@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from api.models import ListItems
 import json
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 # Takes in a list of dict elements and remove user_id field from each
@@ -19,38 +20,44 @@ def removeUserId(data):
     return filteredData
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['PUT'])
 def update(request):
-    user = None
+    user = request.user
+
     try:
-        user = request.user
+        print("Put receisssved")
+        dataString = list(request.data)
+
+        jsonData = json.loads(dataString[0])
+
+        id = int(jsonData["id"])
+        text = jsonData['text']
+        purchased = True if (
+            jsonData["purchased"] == True) else False
+        user = user
+        listitem = ListItems(
+            id=id, text=text, purchased=purchased, user=user)
+        ListItems.objects.filter(pk=id).update(purchased=purchased)
+        ListItems.objects.filter(pk=id).update(text=text)
+        # except:
+        #     print("Error in received data for put")
+        return JsonResponse({'data': 'success'})
     except:
-        print("Not authorized")
+        print("Error in received data for post")
+    # Return to login page
+    print("Redirecting")
+    return redirect('users/login')
 
-    if user.is_authenticated:
-        if request.method == "PUT":
-            try:
-                print("Put receisssved")
-                dataString = list(request.data)
 
-                jsonData = json.loads(dataString[0])
+def delete(request, id):
+    try:
 
-                # Truncate first 5 chars to get a smaller id
+        ListItems.objects.filter(pk=int(id)).delete()
 
-                id = int(jsonData["id"])
-                text = jsonData['text']
-                purchased = True if (
-                    jsonData["purchased"] == True) else False
-                user = user
-                listitem = ListItems(
-                    id=id, text=text, purchased=purchased, user=user)
-                listitem.save()
-                # except:
-                #     print("Error in received data for put")
-                return JsonResponse({'data': 'success'})
-            except:
-                print("Error in received data for post")
-    # Else return to login page
+        return JsonResponse({'data': 'success'})
+    except:
+        print("Error in received data for post")
+    # Return to login page
     print("Redirecting")
     return redirect('users/login')
 
@@ -84,8 +91,7 @@ def index(request):
                 jsonData = json.loads(dataString[0])
                 # try:
 
-                # Truncate first 5 chars to get a smaller id
-                id = int(jsonData["id"][5:])
+                id = int(jsonData["id"])
                 text = jsonData["text"]
                 purchased = True if (
                     jsonData["purchased"] == True) else False
@@ -102,6 +108,9 @@ def index(request):
         if request.method == "PUT":
 
             response = update(request)
+            return response
+        if request.method == "DELETE":
+            response = delete(request)
             return response
     # Else return to login page
     print("Redirecting")

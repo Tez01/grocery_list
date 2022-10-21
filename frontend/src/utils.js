@@ -139,7 +139,21 @@ function getCookie(name) {
 
 const updateData = async (data) => {
   console.log(data);
-  const response = await axios.put("api/", JSON.stringify(data));
+  const response = await axios({
+    method: "put",
+    url: "api/",
+    data: JSON.stringify(data),
+  });
+
+  return response;
+};
+const deleteData = async (data) => {
+  const response = await axios.delete("api/", {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    data: { data: JSON.stringify(data) },
+  });
 
   return response;
 };
@@ -152,4 +166,5 @@ export {
   getCurrentItems,
   getCookie,
   updateData,
+  deleteData,
 };
