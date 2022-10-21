@@ -74,5 +74,4 @@ function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
     </div>
   );
 }
-
 export default List;
