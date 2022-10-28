@@ -184,7 +184,7 @@ const Add = () => {
     <div className="Add">
       {/* Pass the above submitHandler as prop to Utilities,
       so that when form in utilities is submitted it runs this function*/}
-      <Utilities submitHandler={addHandler} />;
+      <Utilities submitHandler={addHandler} />
       {/* Pass the above state variable of lists as prop to List */}
       <List
         listItems={listItems}
@@ -192,7 +192,6 @@ const Add = () => {
         deleteHandler={deleteHandler}
         editHandler={editHandler}
       />
-      ;
     </div>
   );
 };
