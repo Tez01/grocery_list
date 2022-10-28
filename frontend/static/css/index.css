@@ -7,6 +7,9 @@
     --clr-secondary: #005FB8;
     --clr-accent-1: #B8C7CC;
     --clr-accent-2: #DD6031;
+    --clr-positive: #14B86B;
+    --clr-negative: #B80000;
+
 
 
     /* Font family */
@@ -74,6 +77,7 @@ body{
 body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
+  background-color: var(--clr-background-primary);
 }
 
 /* A elements that don't have a class get default styles */
@@ -177,4 +181,15 @@ h1{
 h3{
     font-size: var(--fs-medium);
     font-weight: var(--fw-bold);
+}
+
+.bg-button-save{
+    background-color: var(--clr-positive);
+}
+.bg-button-delete{
+    background-color: var(--clr-negative);
+}
+
+.bg-button-accent-2{
+    background-color: var(--clr-accent-2);
 }

@@ -1,0 +1,33 @@
+.edit{
+    margin: 20%;
+    margin-top: 10%;
+    display: flex;
+    justify-content: center;
+
+}
+.edit > *{
+    border: none;
+    
+}
+.edit__input:focus{
+    outline: none !important;
+    border: 1px solid;
+    border-color: var(--clr-accent-2);
+}
+
+.edit__input{
+    min-height: 5vh;
+    flex-grow: 2;
+    width: auto;
+}
+.edit__button{
+    flex-grow: 1.5;
+}
+
+@media (max-width:800px){
+    .edit__button{
+        flex-wrap: wrap;
+    
+    }
+
+}

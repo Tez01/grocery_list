@@ -8,4 +8,6 @@ RUN npm install frontend/
 COPY requirements.txt /grocery_list/
 RUN pip3 install -r requirements.txt
 COPY . .
-RUN nohup npm --prefix frontend/ run dev&
+# I had to use nohup and detached the process so that I could run npm and django server in same container, 
+# otherwise it would get stuck here.
+RUN nohup npm --prefix frontend/ run dev& 
