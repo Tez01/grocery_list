@@ -70,7 +70,7 @@ list = driver.find_element(
     By.CLASS_NAME, "list")
 listItems = list.find_elements(By.XPATH, "*")
 
-for index, item in enumerate(listItems[:-5]):
+for index, item in enumerate(listItems[:-6]):
     if index == 0:
         # Skip the last added item to see update made previously
         continue
