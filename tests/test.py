@@ -122,3 +122,26 @@ for index, item in enumerate(listItems):
         # Click the purchase button
         WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable(purchasedButton)).click()
+
+
+time.sleep(5)
+
+# Delete all items
+# Find the delete button
+list = driver.find_element(
+    By.CLASS_NAME, "list")
+listItems = list.find_elements(By.XPATH, "*")
+
+for index, item in enumerate(listItems):
+
+    # Find the delete button of next item
+    deleteButton = item.find_element(
+        By.CLASS_NAME, "list__element__button--delete")
+    # Click add button
+    WebDriverWait(driver, 20).until(
+        EC.element_to_be_clickable(deleteButton)).click()
+
+time.sleep(2)
+
+# Close the window
+driver.close()
