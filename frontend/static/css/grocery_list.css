@@ -79,10 +79,11 @@
 } */
 .list__element{
     display:flex;
-    margin: 1 rem;
+    margin: .65rem;
     justify-content: stretch;   
-    padding: .25rem;
+    
     align-items:flex-end;
+    min-height: 5vh;
     /* Defining this variable because height of edit and delete button depends on this */
     --data-button-height: 5vh;
 }
@@ -92,6 +93,11 @@
 .item--purchased{
     filter: brightness(50%);
 }
+.item__index{
+    align-self: center;
+    margin:.5rem;
+  
+}
 .list__element__button{
     border:none   ;
     
@@ -99,7 +105,7 @@
 .list__element__button--data{
     border:none   ;
     width:80%;
-    height:5vh;
+    height:var(--data-button-height);
 }
 
 .button--hidden{
@@ -111,7 +117,7 @@
 }
 /* This class will expand the button so that it contains all text */
 .button--expand{
-    min-height: 5vh;
+    min-height:var(--data-button-height);
     border:none   ;
     overflow-wrap: break-word; 
     height:auto;

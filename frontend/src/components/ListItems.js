@@ -27,18 +27,19 @@ function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
   }
   return (
     <div className="list container">
-      {listItems.map((item) => {
+      {listItems.map((item, index) => {
         return (
           <div
             className={`list__element ${
               item.purchased ? "item--purchased" : "item--not-purchased"
-            }`}
+            } bg-primary-color`}
             key={item.id}
             id={item.id}
           >
+            <span className="bg-primary-color item__index">{index + 1}</span>
             <button
               type="button"
-              className="list__element__button list__element__button--data bg-primary-color button--hidden"
+              className="list__element__button list__element__button--data  button--hidden"
               onClick={toggleButtonText}
               data-size="0"
             >

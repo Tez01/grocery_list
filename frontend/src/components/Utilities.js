@@ -21,14 +21,14 @@ function Utilities({ edit, submitHandler }) {
         <>
           <form className="utilities__form" onSubmit={handleSubmit}>
             <input
-              className="utilities__form__input fs-body fw-regular"
+              className="utilities__form__input fs-body fw-regular utilities__form__input--update"
               type="text"
               placeholder="Update item..."
               value={input}
               onChange={handleChange}
               autoFocus
             />
-            <button className="utilities__form__button fs-button fw-semi-bold bg-accent-1">
+            <button className="utilities__form__button fs-button fw-semi-bold bg-accent-1 utilities__form__button--update">
               Update
             </button>
           </form>
