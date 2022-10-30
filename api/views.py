@@ -1,3 +1,4 @@
+from audioop import reverse
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core import serializers
@@ -36,19 +37,17 @@ def update(request):
         text = jsonData['text']
         purchased = True if (
             jsonData["purchased"] == True) else False
-        user = user
-        listitem = ListItems(
-            id=id, text=text, purchased=purchased, user=user)
+
         ListItems.objects.filter(pk=id).update(purchased=purchased)
         ListItems.objects.filter(pk=id).update(text=text)
         # except:
         #     print("Error in received data for put")
         return JsonResponse({'data': 'success'})
     except:
-        print("Error in received data for post")
-    # Return to login page
-    print("Redirecting")
-    return redirect('users/login')
+        print("Error in received data for update")
+        # Return to login page
+        print("Redirecting")
+        return redirect('users:login')
 
 
 def delete(request, id):
@@ -59,9 +58,10 @@ def delete(request, id):
         return JsonResponse({'data': 'success'})
     except:
         print("Error in received data for post")
-    # Return to login page
-    print("Redirecting")
-    return redirect('users/login')
+        # Return to login page
+        print("Redirecting")
+        response = redirect('users:login')
+        return response
 
 
 def index(request):
@@ -70,7 +70,7 @@ def index(request):
         user = request.user
     except:
         print("Not authorized")
-        return redirect('users/login')
+        return redirect('users:login')
     # Only process request if user is authenticated
     if user.is_authenticated:
         # Get all list items
@@ -117,4 +117,4 @@ def index(request):
             return response
     # Else return to login page
     print("Redirecting")
-    return redirect('users/login')
+    return redirect('users:login')

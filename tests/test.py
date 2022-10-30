@@ -143,5 +143,5 @@ for index, item in enumerate(listItems):
 
 time.sleep(2)
 
-# Close the window
-driver.close()
+# # Close the window
+# driver.close()

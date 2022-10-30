@@ -1,12 +1,12 @@
 {%extends "users/layout.html"%} {%block body%} {%if message%}
 <div>{{message }}</div>
 {%endif%}
-<form action="{%url 'login'%}" method="post">
+<form action="{%url 'users:login'%}" method="post">
   {%csrf_token%}
   <input id = "username" type="text" name="username" placeholder="Username" />
   <input id="password" type="password" name="password" placeholder="Password" />
   <input id="login" type="submit" value="Login" />
 </form>
 <h4>Don't have an account ?</h4>
-<a href='{%url 'signup'%}'>Signup</a>
+<a href='{%url 'users:signup'%}'>Signup</a>
 {%endblock%}

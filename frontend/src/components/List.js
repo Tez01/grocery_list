@@ -32,12 +32,19 @@ const Add = () => {
     };
 
     const currentListItems = fetchData()
-      .then((response) => response.json())
+      .then((response) => {
+        console.log("Fetching data from database");
+        console.log(response);
+        return response.json();
+      })
       .then((data) => {
         const items = data.data.reverse(); // Because data has a data element
+
         // Update the state variable for list components
         updateListItems([...listItems, ...items]);
-        console.log("Fetched from database");
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -51,16 +58,13 @@ const Add = () => {
       if (item.id === itemId) {
         const response = axios.delete(`api/${itemId}`);
         response
-          .then((response) => console.log(response))
+          .then((response) => {
+            console.log("Deleting item from the database");
+            console.log(response);
+          })
           .catch((err) => {
             console.log(err);
           });
-        // // Make a delete request to the database for this id
-        // const response = deleteData({ id: itemId })
-        //   .then((response) => console.log(response))
-        //   .catch((err) => {
-        //     console.log(err);
-        //   });
       }
       return item.id !== itemId;
     });
@@ -97,8 +101,12 @@ const Add = () => {
 
         return response;
       };
+
       sendData()
-        .then((response) => console.log(response))
+        .then((response) => {
+          console.log("Saving new items in database");
+          console.log(response);
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -147,7 +155,10 @@ const Add = () => {
     updateListItems(newItems);
 
     updateData({ id: itemId, text: textInput, purchased: newPurchaseStatus })
-      .then((response) => console.log(response))
+      .then((response) => {
+        console.log("Changing purchase status in database");
+        console.log(response);
+      })
       .catch((err) => {
         console.log(err);
       });
@@ -166,9 +177,13 @@ const Add = () => {
             purchased: false,
           };
           // Make a PUT request to database
+
           const response = updateData(newElement);
           response
-            .then((response) => console.log(response))
+            .then((response) => {
+              console.log("Updating item in database");
+              console.log(response);
+            })
             .catch((err) => {
               console.log(err);
             });
