@@ -111,7 +111,6 @@ WebDriverWait(driver, 20).until(
 list = driver.find_element(
     By.CLASS_NAME, "list")
 listItems = list.find_elements(By.XPATH, "*")
-print(len(listItems))
 time.sleep(1)
 # Make every other entry purchased
 for index, item in enumerate(listItems):

@@ -32,11 +32,11 @@ function List({ listItems, purchaseHandler, deleteHandler, editHandler }) {
           <div
             className={`list__element ${
               item.purchased ? "item--purchased" : "item--not-purchased"
-            } bg-primary-color`}
+            } `}
             key={item.id}
             id={item.id}
           >
-            <span className="bg-primary-color item__index">{index + 1}</span>
+            <span className="bg-accent-1 item__index">{index + 1}</span>
             <button
               type="button"
               className="list__element__button list__element__button--data  button--hidden"
