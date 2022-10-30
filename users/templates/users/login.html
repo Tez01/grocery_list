@@ -3,9 +3,9 @@
 {%endif%}
 <form action="{%url 'login'%}" method="post">
   {%csrf_token%}
-  <input type="text" name="username" placeholder="Username" />
-  <input type="password" name="password" placeholder="Password" />
-  <input type="submit" value="Login" />
+  <input id = "username" type="text" name="username" placeholder="Username" />
+  <input id="password" type="password" name="password" placeholder="Password" />
+  <input id="login" type="submit" value="Login" />
 </form>
 <h4>Don't have an account ?</h4>
 <a href='{%url 'signup'%}'>Signup</a>
