@@ -81,21 +81,21 @@ WSGI_APPLICATION = 'grocery_list.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 
 
     # Postgres database config
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbcism9oruu5vu',
-        'USER': 'fuqqnobtzssrgf',
-        'PASSWORD': '3de205f4b09ae29e03cf1ca2fbc0b0e10b8ce267c00aad10c2e6a1195a950fc4',
-        'HOST': 'ec2-34-194-40-194.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'dbcism9oruu5vu',
+    #     'USER': 'fuqqnobtzssrgf',
+    #     'PASSWORD': '3de205f4b09ae29e03cf1ca2fbc0b0e10b8ce267c00aad10c2e6a1195a950fc4',
+    #     'HOST': 'ec2-34-194-40-194.compute-1.amazonaws.com',
+    #     'PORT': '5432',
+    # }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'heroku_bb3dcf80f9f7639',

@@ -1,6 +1,6 @@
 from audioop import reverse
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.core import serializers
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -8,6 +8,8 @@ from api.models import ListItems
 import json
 from django.views.decorators.csrf import csrf_exempt
 from http import HTTPStatus
+import traceback
+import logging
 # Create your views here.
 
 # Takes in a list of dict elements and remove user_id field from each
@@ -65,12 +67,7 @@ def delete(request, id):
 
 
 def index(request):
-    user = None
-    try:
-        user = request.user
-    except:
-        print("Not authorized")
-        return redirect('users:login')
+    user = request.user
     # Only process request if user is authenticated
     if user.is_authenticated:
         # Get all list items
@@ -91,7 +88,6 @@ def index(request):
 
                 dataString = list(request.POST)
                 jsonData = json.loads(dataString[0])
-
                 # Get all the fields from json of request
                 id = int(jsonData["id"])
                 text = jsonData["text"]
@@ -103,8 +99,8 @@ def index(request):
                     id=id, text=text, purchased=purchased, user=user)
                 listitem.save()
                 return JsonResponse({'data': 'success'}, status=HTTPStatus.CREATED)
-            except:
-                print("Error in received data for post")
+            except Exception as e:
+                logging.error(traceback.format_exc())
                 return JsonResponse({'data': 'success'}, status=HTTPStatus.BAD_REQUEST)
 
         # Update a new item
@@ -116,5 +112,4 @@ def index(request):
             response = delete(request)
             return response
     # Else return to login page
-    print("Redirecting")
-    return redirect('users:login')
+    return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
