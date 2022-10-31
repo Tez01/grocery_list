@@ -138,7 +138,6 @@ function getCookie(name) {
 }
 
 const updateData = async (data) => {
-  console.log(data);
   const response = await axios({
     method: "put",
     url: "api/",
