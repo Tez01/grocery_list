@@ -1,11 +1,15 @@
+from audioop import reverse
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
 from django.core import serializers
 from rest_framework import status
 from rest_framework.decorators import api_view
 from api.models import ListItems
 import json
 from django.views.decorators.csrf import csrf_exempt
+from http import HTTPStatus
+import traceback
+import logging
 # Create your views here.
 
 # Takes in a list of dict elements and remove user_id field from each
@@ -25,28 +29,27 @@ def update(request):
     user = request.user
 
     try:
-        print("Put receisssved")
+        # Get the data from request
         dataString = list(request.data)
-
+        # Convert to dict
         jsonData = json.loads(dataString[0])
 
+        # Get all the required fields
         id = int(jsonData["id"])
         text = jsonData['text']
         purchased = True if (
             jsonData["purchased"] == True) else False
-        user = user
-        listitem = ListItems(
-            id=id, text=text, purchased=purchased, user=user)
+
         ListItems.objects.filter(pk=id).update(purchased=purchased)
         ListItems.objects.filter(pk=id).update(text=text)
         # except:
         #     print("Error in received data for put")
         return JsonResponse({'data': 'success'})
     except:
-        print("Error in received data for post")
-    # Return to login page
-    print("Redirecting")
-    return redirect('users/login')
+        print("Error in received data for update")
+        # Return to login page
+        print("Redirecting")
+        return redirect('users:login')
 
 
 def delete(request, id):
@@ -57,18 +60,14 @@ def delete(request, id):
         return JsonResponse({'data': 'success'})
     except:
         print("Error in received data for post")
-    # Return to login page
-    print("Redirecting")
-    return redirect('users/login')
+        # Return to login page
+        print("Redirecting")
+        response = redirect('users:login')
+        return response
 
 
 def index(request):
-    user = None
-    try:
-        user = request.user
-    except:
-        print("Not authorized")
-        return redirect('users/login')
+    user = request.user
     # Only process request if user is authenticated
     if user.is_authenticated:
         # Get all list items
@@ -78,10 +77,10 @@ def index(request):
 
                 filtered = removeUserId(listItems)
 
-                return JsonResponse({'data': filtered})
+                return JsonResponse({'data': filtered}, status=HTTPStatus.OK)
             except:
-                print("Internal server error")
-                return JsonResponse({'data': []})
+                print("Bad request")
+                return JsonResponse({'data': []}, HTTPStatus.BAD_REQUEST)
 
         # Post a new item
         if request.method == "POST":
@@ -89,8 +88,7 @@ def index(request):
 
                 dataString = list(request.POST)
                 jsonData = json.loads(dataString[0])
-                # try:
-
+                # Get all the fields from json of request
                 id = int(jsonData["id"])
                 text = jsonData["text"]
                 purchased = True if (
@@ -100,9 +98,10 @@ def index(request):
                 listitem = ListItems(
                     id=id, text=text, purchased=purchased, user=user)
                 listitem.save()
-                return JsonResponse({'data': 'success'})
-            except:
-                print("Error in received data for post")
+                return JsonResponse({'data': 'success'}, status=HTTPStatus.CREATED)
+            except Exception as e:
+                logging.error(traceback.format_exc())
+                return JsonResponse({'data': 'success'}, status=HTTPStatus.BAD_REQUEST)
 
         # Update a new item
         if request.method == "PUT":
@@ -113,5 +112,4 @@ def index(request):
             response = delete(request)
             return response
     # Else return to login page
-    print("Redirecting")
-    return redirect('users/login')
+    return HttpResponseForbidden('<h1>403 Forbidden</h1>', content_type='text/html')
