@@ -38,7 +38,8 @@ const Add = () => {
         return response.json();
       })
       .then((data) => {
-        const items = data.data.reverse(); // Because data has a data element
+        // const items = data.data.reverse(); // Because data has a data element
+        const items = data.data; // Because data has a data element
 
         // Update the state variable for list components
         updateListItems([...listItems, ...items]);
@@ -91,7 +92,7 @@ const Add = () => {
 
       // Push to current array of components
       const newListItem = { id: key, text: textInput, purchased: false };
-      let newArr = [newListItem, ...listItems];
+      let newArr = [...listItems, newListItem];
       // Update the state
       updateListItems(newArr);
       // Make a post request to the backend to add this item

@@ -156,3 +156,17 @@
  }
 
 
+.button{
+    border: none;
+    padding: .25rem;
+    border-radius: .25rem;
+    
+}
+
+.button--logout{
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    text-decoration: none;
+
+}

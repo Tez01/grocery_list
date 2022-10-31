@@ -1,5 +1,5 @@
 {%extends "users/layout.html"%} {%block body%} {%if message%}
-<div>{{message }}</div>
+<div style="color:red">{{message }}</div>
 {%endif%}
 <form action="{%url 'users:login'%}" method="post">
   {%csrf_token%}

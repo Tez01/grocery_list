@@ -112,6 +112,9 @@ svg {
 
 /* Utility classes */
 /* For text color*/
+.text-color-black{
+    color:var(--clr-background-primary)
+}
 .text-primary-color{
     color: var(--clr-primary)
 }
